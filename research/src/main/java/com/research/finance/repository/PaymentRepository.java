@@ -1,0 +1,67 @@
+package com.research.finance.repository;
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.research.finance.dto.PaymentDTO;
+import com.research.finance.dao.PaymentDAO;
+import com.research.finance.entity.PaymentProjection;
+import com.research.finance.iservice.IPaymentRepository;
+
+
+
+@Component
+public class PaymentRepository implements IPaymentRepository {
+	@Autowired
+	private PaymentDAO  PaymentDAO;
+	@Override
+	public String AddPaymenteRequest(PaymentDTO paymentDTO) {
+		PaymentProjection paypro = new PaymentProjection();
+		Date now = new Date();
+		paypro.setEntrytype(paymentDTO.getEntrytype());
+		paypro.setDate(now);
+		paypro.setGarageID(paymentDTO.getGarageID());
+		paypro.setOrganisationID(paymentDTO.getOrganisationID());
+		paypro.setPayment_Amount(paymentDTO.getPayment_Amount());
+		paypro.setPayment_Via(paymentDTO.getPaymentVia());
+		PaymentDAO.save(paypro);
+		return "Payment Request Saved";
+	}
+	
+	@Override
+	public PaymentDTO getAddPaymenteRequest(String paymentid) {
+		PaymentProjection paypro = PaymentDAO.getOne(paymentid);
+		PaymentDTO paydto = new PaymentDTO();
+		paydto.setPaymentID(paypro.getPaymentID());
+		paydto.setEntrytype(paypro.getEntrytype());
+		paydto.setDate(paypro.getDate());
+		paydto.setGarageID(paypro.getGarageID());
+		paydto.setOrganisationID(paypro.getOrganisationID());
+		paydto.setPayment_Amount(paypro.getPayment_Amount());
+		paydto.setPaymentVia(paypro.getPayment_Via());
+		return paydto;
+	}
+	@Override
+	public String deletePaymenteRequest(String paymentid) {
+		PaymentDAO.deleteById(paymentid);
+		
+		return "deleted";
+	}
+
+	
+	@Override
+	public String UpdatePaymenteRequest(PaymentDTO paymentDTO) {
+		PaymentProjection paypro = PaymentDAO.getOne(paymentDTO.getPaymentID());
+		paypro.setPaymentID(paymentDTO.getPaymentID());
+		paypro.setEntrytype(paymentDTO.getEntrytype());
+		paypro.setDate(paymentDTO.getDate());
+		paypro.setGarageID(paymentDTO.getGarageID());
+		paypro.setOrganisationID(paymentDTO.getOrganisationID());
+		paypro.setPayment_Amount(paymentDTO.getPayment_Amount());
+		paypro.setPayment_Via(paymentDTO.getPaymentVia());
+		PaymentDAO.save(paypro);
+		return "updated";
+	}
+
+}
