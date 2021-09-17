@@ -20,8 +20,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name ="JobCard")
-@Table(name ="JobCard")
+@Entity(name ="Job_Card")
+@Table(name ="Job_Card")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
@@ -48,7 +48,7 @@ public class JobCardProjection  {
     private String Job_Card_Type;
     @Column(length = 100)
     private String Job_Card_Status;
-    private Date JobCreationDate;
+    private Date Job_Creation_Date;
     private Date Estimated_Completion_Date;
     @Column(length = 100)
     private String Vehicle_Reg_No;

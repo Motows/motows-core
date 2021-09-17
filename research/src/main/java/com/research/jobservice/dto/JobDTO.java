@@ -1,4 +1,7 @@
 package com.research.jobservice.dto;
+import javax.persistence.Column;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,16 +12,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class JobDTO {
-
 	private String JobID;
-    
-    private String JobDescription;
-    
-    private String JobDescriptionCaption;
-    
-    private String OrganisationID;
-    
-    private String JobDescriptionUI;
-    
-    private String Model;
+	private String OrganisationID;	
+	private String Garageid;
+	private String JobCardID;
+	private String Job_Description;
+	private int Price;
+	private String jobStatus;
 }	

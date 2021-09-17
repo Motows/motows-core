@@ -1,5 +1,8 @@
 package com.research.garage.iservice;
 
+
+import java.util.List;
+
 import com.research.jobservice.dto.JobDTO;
 
 public interface IJobRepository {
@@ -11,6 +14,6 @@ public interface IJobRepository {
 
 	String UpdateJobDetails(JobDTO jobdto);
 
-	// String UpdateJobDetails(JobDTO jobdto);
+	List<JobDTO> getjobdetailsByJobCardID(String jobCardId);
 
 }

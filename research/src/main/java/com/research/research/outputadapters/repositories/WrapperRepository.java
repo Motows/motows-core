@@ -129,7 +129,27 @@ public class WrapperRepository implements IWrapperRepository {
 
 	
 	@Override
-	public List<VehicelDetailsDTO>  getVehicleByRegNo(String OrgId,String regNo) {
+	public List<VehicelDetailsDTO>  getVehicleByRegNo(String regNo) {
+
+		List<VehicelDetailsDTO> VehicelDetailsDTOList = new ArrayList<VehicelDetailsDTO>();
+		List<VINProjection> vinList = VinDAO.getAllByVinRegNo(regNo);
+		for(VINProjection vin: vinList)
+		{
+			VehicelDetailsDTO VehicelDetailsDTO = new VehicelDetailsDTO();
+			ColorProjection color=vin.getColor();
+			ModelProjection model=vin.getModel();
+			VehicelDetailsDTO.setColorDesc(color.getColor_Description());
+			VehicelDetailsDTO.setManufactureYear(vin.getManufacture_Year());
+			VehicelDetailsDTO.setVehicleNumber(vin.getVINReg_No());
+			VehicelDetailsDTO.setModelDesc(model.getModel_Description());
+			VehicelDetailsDTOList.add(VehicelDetailsDTO);
+		}
+	
+		return VehicelDetailsDTOList;
+	}
+	
+	@Override
+	public List<VehicelDetailsDTO>  getVehicleByRegNo_old(String OrgId,String regNo) {
 
 		List<VehicelDetailsDTO> VehicelDetailsDTOList = new ArrayList<VehicelDetailsDTO>();
 		List<VIN_ContactProjection> vinContactList = null; 
@@ -137,6 +157,8 @@ public class WrapperRepository implements IWrapperRepository {
 		List<String> veh_arr = new ArrayList<String>();
 		for(VINProjection vin: vinListTmp)
 		{
+			
+			
 			//vinContactList.add(vin.getVinContact());
 			//vinContactList = VinContactDAO.getAllByRegNo(vin_contact.ge);
 			List<CustomerProjection> customerList = (List<CustomerProjection>) 

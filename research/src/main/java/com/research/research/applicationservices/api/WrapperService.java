@@ -24,9 +24,9 @@ public class WrapperService {
 		return this.wrapperRepository.getVehicleByCustomer(mobileNo,orgId);
 		
 	}
-	public List<VehicelDetailsDTO> getVehicleByRegNo(String orgId,String regNo) {
+	public List<VehicelDetailsDTO> getVehicleByRegNo(String regNo) {
 		// TODO Auto-generated method stub
-		return this.wrapperRepository.getVehicleByRegNo(orgId,regNo);
+		return this.wrapperRepository.getVehicleByRegNo(regNo);
 	}
 
 }

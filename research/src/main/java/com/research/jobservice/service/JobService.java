@@ -1,4 +1,7 @@
-package com.research.garage.service;
+package com.research.jobservice.service;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +25,13 @@ public class JobService {
 		// TODO Auto-generated method stub
 		return this.JobRepository.getJobdetailsById(jobId);
 	}
+	
+	public List<JobDTO> getjobdetailsByJobCardID(String jobCardId) {
+		// TODO Auto-generated method stub
+		return this.JobRepository.getjobdetailsByJobCardID(jobCardId);
+	}
+	
+	
 
 	public String deletejobById(String jobId) {
 		// TODO Auto-generated method stub
@@ -33,6 +43,8 @@ public class JobService {
 		return	this.JobRepository.UpdateJobDetails(jobdto);
 	
 }
+
+	
 }
 	
 	

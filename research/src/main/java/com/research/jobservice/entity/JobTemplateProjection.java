@@ -17,8 +17,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "JobTemplate")
-@Table(name = "JobTemplate")
+@Entity(name = "Job_Template")
+@Table(name = "Job_Template")
 @Data
 @Builder
 @NoArgsConstructor
@@ -48,5 +48,9 @@ public class JobTemplateProjection {
 	private String organisation_Id;
 	@Column(length = 50)
 	private String garage_Id;
+	@Column(length = 50)
+	private String category;
+	@Column(length = 10)
+	private int price;
 
 }

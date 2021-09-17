@@ -19,8 +19,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "JobItems")
-@Table(name = "JobItems")
+@Entity(name = "Job_Items")
+@Table(name = "Job_Items")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder

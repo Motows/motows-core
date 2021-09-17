@@ -18,8 +18,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "JobitemType")
-@Table(name = "JobitemType")
+@Entity(name = "Jobitem_Type")
+@Table(name = "Jobitem_Type")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder

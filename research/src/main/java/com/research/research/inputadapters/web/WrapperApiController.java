@@ -35,9 +35,9 @@ public class WrapperApiController {
 	}
 
 	
-	@GetMapping("/getVehicleByRegNo/{orgId}/{regNo}")
-	public List<VehicelDetailsDTO> getVehicleByRegNo(@PathVariable String orgId,@PathVariable String regNo) {
-		return this.wrapperService.getVehicleByRegNo(orgId,regNo);
+	@GetMapping("/getVehicleByRegNo/{regNo}")
+	public List<VehicelDetailsDTO> getVehicleByRegNo(@PathVariable String regNo) {
+		return this.wrapperService.getVehicleByRegNo(regNo);
 
 	}
 

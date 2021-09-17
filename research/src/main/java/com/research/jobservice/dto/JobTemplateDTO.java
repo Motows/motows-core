@@ -23,5 +23,8 @@ public class JobTemplateDTO {
 	private String organisationId;
 
 	private String garageId;
+	
+	private String Category;
+	private int Price;
 
 }

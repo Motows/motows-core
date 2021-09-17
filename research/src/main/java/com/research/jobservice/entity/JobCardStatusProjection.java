@@ -19,8 +19,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "JobCardStatus")
-@Table(name = "JobCardStatus")
+@Entity(name = "Job_Card_Status")
+@Table(name = "Job_Card_Status")
 @Builder
 @Data
 @EntityListeners(AuditingEntityListener.class)

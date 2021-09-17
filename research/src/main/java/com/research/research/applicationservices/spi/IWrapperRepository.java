@@ -13,7 +13,9 @@ public interface IWrapperRepository {
 
 	List<VehicelDetailsDTO> getVehicleByCustomer(String mobileNo,String orgId);
 
-	List<VehicelDetailsDTO> getVehicleByRegNo(String orgId,String regNo);
+	List<VehicelDetailsDTO> getVehicleByRegNo(String regNo);
+
+	List<VehicelDetailsDTO> getVehicleByRegNo_old(String OrgId, String regNo);
 
 	
 	
