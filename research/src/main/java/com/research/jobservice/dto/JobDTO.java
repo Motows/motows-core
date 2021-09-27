@@ -19,4 +19,5 @@ public class JobDTO {
 	private String Job_Description;
 	private int Price;
 	private String jobStatus;
+	private String Jobtype;
 }	

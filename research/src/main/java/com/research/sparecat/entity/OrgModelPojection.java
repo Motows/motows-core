@@ -37,13 +37,13 @@ public class OrgModelPojection {
 	})
 	@Id
 	@Column(unique = true, length = 50)
-	private String ModelID;
+	private String Model_ID;
 
 	@Column(length = 250)
-	private String OrganisationID;
+	private String Organisation_ID;
 
 	@Column(length = 250)
-	private String PartID;
+	private String Part_ID;
 
 	@Column(length = 250)
 	private String Model_Description;
@@ -52,6 +52,6 @@ public class OrgModelPojection {
 	private String Model_Caption;
 
 	@Column(length = 250)
-	private String ModelUI;
+	private String Model_UI;
 
 }

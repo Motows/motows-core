@@ -57,5 +57,9 @@ public class JobItemsProjection {
 	private Double Tax;
 
 	private String hsn_Or_Sac;
+	
+	private String  job_cardid;
+	
+	private String  item_status;
 
 }

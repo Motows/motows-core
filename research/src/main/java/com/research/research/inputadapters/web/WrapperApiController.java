@@ -14,6 +14,8 @@ import com.research.research.outputadapters.repositories.VehicelDetailsListDTO;
 import com.research.research.outputadapters.repositories.Vin;
 import com.research.vehicle.entity.VINProjection;
 
+import io.swagger.annotations.Api;
+@Api(description = "Wrapper API Controller", tags = { "Wrapper API" })
 @RestController
 @RequestMapping("api/wrapperapi")
 public class WrapperApiController {
@@ -41,6 +43,11 @@ public class WrapperApiController {
 
 	}
 
+	@GetMapping("/getEstimateByJobCardID/{jobCardId}")
+	public EstimateDTO getEstimateByJobCardID(@PathVariable String jobCardId) 
+	{
+		return this.wrapperService.getEstimateByJobCardID(jobCardId);
+	}
 	
 	
 

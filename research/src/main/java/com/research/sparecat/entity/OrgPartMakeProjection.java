@@ -19,8 +19,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name ="OrgPartMake")
-@Table(name ="OrgPartMake")
+@Entity(name ="Org_Part_Make")
+@Table(name ="Org_Part_Make")
 @EntityListeners(AuditingEntityListener.class)
 @Builder
 @Data

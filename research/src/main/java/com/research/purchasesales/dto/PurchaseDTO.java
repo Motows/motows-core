@@ -33,6 +33,6 @@ public class PurchaseDTO {
   
     private String Jobno;
     
-    private List<PurchaseLineDTO> Purchaseline;
+    //private List<PurchaseLineDTO> Purchaseline;
     
 }

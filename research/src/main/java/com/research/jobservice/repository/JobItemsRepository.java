@@ -3,6 +3,7 @@ package com.research.jobservice.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.research.jobservice.dao.JobCodeDAO;
 import com.research.jobservice.dao.JobItemsDAO;
 import com.research.jobservice.dto.JobItemsDTO;
 import com.research.jobservice.entity.JobItemsProjection;
@@ -13,11 +14,18 @@ public class JobItemsRepository implements IJobItemsRepository {
 
 	@Autowired
 	private JobItemsDAO jobItemsDAO;
+	
+	@Autowired
+	private JobCodeDAO jobCodeDAO;
 
 	@Override
 	public String saveJobItems(JobItemsDTO jobItemsDTO) {
 		JobItemsProjection jobItems = new JobItemsProjection();
-
+		String jobcardId=jobItemsDTO.getJob_cardid();
+		if(jobCodeDAO.getOne(jobcardId)==null)
+		{
+			return "Job Card Id not available";
+		}
 		jobItems.setJob_Item_Type(jobItemsDTO.getJobItemType());
 		jobItems.setJob_No(jobItemsDTO.getJobNo());
 		jobItems.setPrice(jobItemsDTO.getPrice());
@@ -26,6 +34,7 @@ public class JobItemsRepository implements IJobItemsRepository {
 		jobItems.setUom(jobItemsDTO.getUom());
 		jobItems.setHsn_Or_Sac(jobItemsDTO.getHsnAndSac());
 		jobItems.setItemcode(jobItemsDTO.getItemcode());
+		jobItems.setItem_status(jobItemsDTO.getItem_status());
 
 		jobItemsDAO.save(jobItems);
 
@@ -47,6 +56,7 @@ public class JobItemsRepository implements IJobItemsRepository {
 		jobItemsDTO.setUom(jobItem.getUom());
 		jobItemsDTO.setHsnAndSac(jobItem.getHsn_Or_Sac());
 		jobItemsDTO.setItemcode(jobItem.getItemcode());
+		jobItemsDTO.setItem_status(jobItem.getItem_status());
 
 		return jobItemsDTO;
 	}
@@ -70,6 +80,7 @@ public class JobItemsRepository implements IJobItemsRepository {
 		jobItems.setUom(jobItemsDTO.getUom());
 		jobItems.setHsn_Or_Sac(jobItemsDTO.getHsnAndSac());
 		jobItems.setItemcode(jobItemsDTO.getItemcode());
+		jobItems.setItem_status(jobItemsDTO.getItem_status());
 
 		jobItemsDAO.save(jobItems);
 

@@ -1,11 +1,16 @@
 package com.research.vehicle.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.research.vehicle.dto.BrandDTO;
+import com.research.vehicle.dto.ModelDTO;
 import com.research.vehicle.dao.BrandDAO;
 import com.research.vehicle.entity.BrandProjection;
+import com.research.vehicle.entity.ModelProjection;
 import com.research.vehicle.iservice.IBrandRepository;
 
 @Component
@@ -58,6 +63,24 @@ public class BrandRepository implements IBrandRepository {
 		brandDAO.save(brand);
 		
 		return "Brand Updated";
+	}
+
+	@Override
+	public List<BrandDTO> getAllBrand() {
+		// TODO Auto-generated method stub
+		List<BrandProjection> brandList = brandDAO.getBrandList();
+		List<BrandDTO> brandDTOList = new ArrayList<BrandDTO>();
+		for(BrandProjection brand:brandList)
+		{
+			BrandDTO brandDTO = new BrandDTO();
+
+			brandDTO.setBrandCaption(brand.getBrand_Caption());
+			brandDTO.setBrandId(brand.getBrand_Id());
+			brandDTO.setBrandName(brand.getBrand_Name());
+			brandDTO.setBrandUi(brand.getBrand_Ui());
+			brandDTOList.add(brandDTO);
+		}
+		return brandDTOList;
 	}
 
 }

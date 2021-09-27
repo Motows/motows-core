@@ -17,9 +17,9 @@ public class OrgModelRepository implements IOrgModelRepository {
 		OrgModelPojection orgmod = new OrgModelPojection();
 		orgmod.setModel_Caption(orgmodelDTO.getModelCaption());
 		orgmod.setModel_Description(orgmodelDTO.getModelDescription());
-		orgmod.setModelUI(orgmodelDTO.getModelUI());
-		orgmod.setOrganisationID(orgmodelDTO.getOrganisationID());
-		orgmod.setPartID(orgmodelDTO.getPartID());
+		orgmod.setModel_UI(orgmodelDTO.getModelUI());
+		orgmod.setOrganisation_ID(orgmodelDTO.getOrganisationID());
+		orgmod.setPart_ID(orgmodelDTO.getPartID());
 		OrgModelDAO.save(orgmod);
 		return "OrgModel is added successfully";
 	}
@@ -30,10 +30,10 @@ public class OrgModelRepository implements IOrgModelRepository {
 		OrgModelDTO orgmodeldto = new OrgModelDTO();
 		orgmodeldto.setModelCaption(orgmod.getModel_Caption());
 		orgmodeldto.setModelDescription(orgmod.getModel_Description());
-		orgmodeldto.setModelUI(orgmod.getModelUI());
-		orgmodeldto.setOrganisationID(orgmod.getOrganisationID());
-		orgmodeldto.setPartID(orgmod.getPartID());
-		orgmodeldto.setModelID(orgmod.getModelID());
+		orgmodeldto.setModelUI(orgmod.getModel_UI());
+		orgmodeldto.setOrganisationID(orgmod.getOrganisation_ID());
+		orgmodeldto.setPartID(orgmod.getPart_ID());
+		orgmodeldto.setModelID(orgmod.getModel_ID());
 		return orgmodeldto;
 	}
 
@@ -48,10 +48,10 @@ public class OrgModelRepository implements IOrgModelRepository {
 		OrgModelPojection orgmod = OrgModelDAO.getOne(orgmodelDTO.getModelID());
 		orgmod.setModel_Caption(orgmodelDTO.getModelCaption());
 		orgmod.setModel_Description(orgmodelDTO.getModelDescription());
-		orgmod.setModelUI(orgmodelDTO.getModelUI());
-		orgmod.setOrganisationID(orgmodelDTO.getOrganisationID());
-		orgmod.setPartID(orgmodelDTO.getPartID());
-		orgmod.setModelID(orgmodelDTO.getModelID());
+		orgmod.setModel_UI(orgmodelDTO.getModelUI());
+		orgmod.setOrganisation_ID(orgmodelDTO.getOrganisationID());
+		orgmod.setPart_ID(orgmodelDTO.getPartID());
+		orgmod.setModel_ID(orgmodelDTO.getModelID());
 		OrgModelDAO.save(orgmod);
 		return "Updated successfully";
 	}

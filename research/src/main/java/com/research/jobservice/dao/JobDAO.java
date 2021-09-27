@@ -21,7 +21,7 @@ public interface JobDAO extends JpaRepository<JobProjection, Long>  {
 	@Query(value = "Select * FROM job  where jobid=?1 ", nativeQuery = true)
 	JobProjection getOne(String jobid);
 	
-	@Query(value = "Select * FROM job  where jobCardid=?1 ", nativeQuery = true)
+	@Query(value = "Select * FROM job  where jobCardid=?1 and job_type in ('Job','Voice')", nativeQuery = true)
 	List<JobProjection> getList(String jobCardid);
 //	
 //	@Query(value = "Select * FROM job  where model=?1 && organisationid=?2 and category=?3", nativeQuery = true)

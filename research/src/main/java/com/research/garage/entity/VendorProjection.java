@@ -48,24 +48,32 @@ public class VendorProjection {
 	private String Vendor_Name_Caption;
 	@Column(length = 100)
 	private String Vendor_NameUI;
-	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-		@JoinColumn(name="orgId")
-	private OrganisationProjection organisation;
+//	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//		@JoinColumn(name="orgId")
+//	private OrganisationProjection organisation;
+	@Column(length = 100)
+	private String org_Id;
 	@Column(length = 100)
 	private String Type;
 	@Column(length = 100)
 	private String EmailID;
 	@Column(length = 100)
 	private String Address;
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="country_Id")	 
-	private CountryProjection country;
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="state_Id")	
-	private StateProjection state;
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="zipCode_Id")	
-	private ZipCodeProjection zipcode;
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@Column(length = 100)
+	private String country_Id;
+	@Column(length = 100)
+	private String state_Id;
+	@Column(length = 100)
+	private String zip_Code_Id;
+//	@JoinColumn(name="country_Id")	 
+//	private CountryProjection country;
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="state_Id")	
+//	private StateProjection state;
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="zipCode_Id")	
+//	private ZipCodeProjection zipcode;
 	@Column(length = 10)
 	private String Mobile_No;
 	@Column(length = 50)

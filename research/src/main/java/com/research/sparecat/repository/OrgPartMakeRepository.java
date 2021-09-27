@@ -3,6 +3,9 @@ package com.research.sparecat.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.research.garage.dao.OrganisationDAO;
+import com.research.garage.entity.OrganisationProjection;
+import com.research.garage.entity.ZipCodeProjection;
 import com.research.sparecat.dao.OrgPartMakeDAO;
 import com.research.sparecat.dto.OrgPartMakeDTO;
 import com.research.sparecat.entity.OrgPartMakeProjection;
@@ -13,12 +16,19 @@ public class OrgPartMakeRepository implements IOrgPartMakeRepository {
 
 	@Autowired
 	private OrgPartMakeDAO orgPartMakeDAO;
+	
+	@Autowired
+	private OrganisationDAO organisationDAO;
 
 	@Override
 	public String addOrgPartMake(OrgPartMakeDTO orgPartMakeDTO) {
-
+		String orgId=orgPartMakeDTO.getOrganisationID();
 		OrgPartMakeProjection orgPartMake = new OrgPartMakeProjection();
-
+		OrganisationProjection org = organisationDAO.getOne(orgPartMakeDTO.getOrganisationID());
+		if(org==null)
+		{
+			return "Org ID "+ orgId +" not in the Master";
+		}
 		orgPartMake.setPart_Make_Name(orgPartMakeDTO.getPartMakeName());
 		orgPartMake.setParts_Make_Caption(orgPartMakeDTO.getPartsMakeCaption());
 		orgPartMake.setParts_Make_Ui(orgPartMakeDTO.getPartsMakeUi());

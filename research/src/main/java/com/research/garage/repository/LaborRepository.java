@@ -24,14 +24,17 @@ public class LaborRepository implements ILaborRepository {
 	@Override
 	public String savelaborDetails(LaborDTO labordto) {
 		
-		OrganisationProjection country = OrganisationDAO.getOne(labordto.getOrganisationID());
-		
+		OrganisationProjection org = OrganisationDAO.getOne(labordto.getOrganisationID());
+		if(org==null)
+		{
+			return "Organisation ID "+ labordto.getOrganisationID() +" not in the Master";
+		}
 		LaborProjection labor = new LaborProjection();
 		labor.setLabor_Description(labordto.getLaborDescription());
 		labor.setLabor_Description_Caption(labordto.getLaborDescriptionCaption());
 		labor.setLabor_DescriptionUI(labordto.getLaborDescriptionUI());
 		labor.setHSN(labordto.getHSN());
-		labor.setOrganisation(country);
+		labor.setOrganisation(org);
 		laborDAO.save(labor);
 		return "Details Saved";
 	}

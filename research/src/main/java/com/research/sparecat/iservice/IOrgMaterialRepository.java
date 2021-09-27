@@ -1,6 +1,9 @@
 package com.research.sparecat.iservice;
 
+import java.util.List;
+
 import com.research.sparecat.dto.OrgMaterialDTO;
+
 
 public interface IOrgMaterialRepository {
 
@@ -11,5 +14,7 @@ public interface IOrgMaterialRepository {
 	String updateorgMaterial(OrgMaterialDTO orgMaterialDTO);
 
 	OrgMaterialDTO getorgmaterialById(String orgmatId);
+
+	List<OrgMaterialDTO> getorgmaterialByOrgIDPartID(String orgID,String partID);
 
 }

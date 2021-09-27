@@ -33,34 +33,37 @@ import com.research.research.outputadapters.entity.StringPrefixedSequenceGenerat
 @NoArgsConstructor
 public class ZipCodeProjection {
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demo_sql")
-	@GenericGenerator(name = "demo_sql", strategy = "com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator", parameters = {
-
-			@Parameter(name = StringPrefixedSequenceGenerator.INCREMENT_PARAM, value = "1"),
-			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "ZIP_"),
-			@Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMATE_PARAMETER, value = "%05d"),
-
-	})
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "demo_sql")
+//	@GenericGenerator(name = "demo_sql", strategy = "com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator", parameters = {
+//
+//			@Parameter(name = StringPrefixedSequenceGenerator.INCREMENT_PARAM, value = "1"),
+//			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER, value = "ZIP_"),
+//			@Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMATE_PARAMETER, value = "%05d"),
+//
+//	})
 	@Id
 	@Column(unique = true, length = 50)
 	private String zip_Code_Id;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="country_Id")
-	private CountryProjection country;
-	
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="state_Id")
-	private StateProjection state;
-	
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="country_Id")
+//	private CountryProjection country;
+//	
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="state_Id")
+//	private StateProjection state;
+	@Column(length = 50)
+	private String country_Id;
+	@Column(length = 50)
+	private String state_Id;
 	@Column(length = 50)
 	private String city_Name;
 	
 //	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "state")
 //	private List<CustomerProjection> customer;
 	
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "zipcode")
-	private List<VendorProjection> Vendors;
+//	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "zipcode")
+//	private List<VendorProjection> Vendors;
 
 	
 }

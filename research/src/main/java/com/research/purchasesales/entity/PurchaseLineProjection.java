@@ -20,8 +20,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator;
-@Entity(name = "PurcahseLine")
-@Table(name = "PurcahseLine")
+@Entity(name = "Purchase_Line")
+@Table(name = "Purchase_Line")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
@@ -55,7 +55,10 @@ public class PurchaseLineProjection {
 	private String Tax;
 	@Column(length = 150)
 	private String HSN;
-	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-		@JoinColumn(name="PurcahseID")
-		private PurchaseProjection Purchase;
+	@Column(length = 150)
+	private String PurcahseID;
+	
+//	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//		@JoinColumn(name="PurcahseID")
+//		private PurchaseProjection Purchase;
 }

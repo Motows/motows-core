@@ -49,10 +49,15 @@ public class JobRepository implements IJobRepository {
 		{
 			return "Organization Not Found";
 		}
+		if(!(jobdto.getJobtype().equals("Job") || jobdto.getJobtype().equals("Voice")))
+		{
+			return "Job type should be Job or Voice";
+		}
 		job.setOrganisationID(jobdto.getOrganisationID());
 		job.setJob_Description(jobdto.getJob_Description());
 		job.setJobStatus(jobdto.getJobStatus());
 		job.setPrice(jobdto.getPrice());
+		job.setJob_type(jobdto.getJobtype());
 		
 		jobDAO.save(job);
 		return "Details Saved";
@@ -72,6 +77,7 @@ public class JobRepository implements IJobRepository {
 		response.setJob_Description(job.getJob_Description());
 		response.setJobStatus(job.getJobStatus());
 		response.setPrice(job.getPrice());
+		response.setJobtype(job.getJob_type());
        }
 
 		return response;
@@ -92,6 +98,7 @@ public class JobRepository implements IJobRepository {
 		response.setJob_Description(job.getJob_Description());
 		response.setJobStatus(job.getJobStatus());
 		response.setPrice(job.getPrice());
+		response.setJobtype(job.getJob_type());
 		jobDtoList.add(response);
        }
 
@@ -122,6 +129,7 @@ public class JobRepository implements IJobRepository {
 		job.setJob_Description(job.getJob_Description());
 		job.setJobStatus(job.getJobStatus());
 		job.setPrice(job.getPrice());
+		job.setJob_type(job.getJob_type());
 		jobDAO.save(job);
 		return "updated";
 	}

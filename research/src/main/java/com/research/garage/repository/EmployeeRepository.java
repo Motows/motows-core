@@ -1,13 +1,19 @@
 package com.research.garage.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.research.garage.dao.EmployeeDAO;
 import com.research.garage.dao.OrganisationDAO;
 import com.research.garage.dto.EmployeeDTO;
+import com.research.garage.entity.CountryProjection;
+import com.research.garage.entity.CustomerProjection;
 import com.research.garage.entity.EmployeeProjection;
 import com.research.garage.entity.OrganisationProjection;
+import com.research.garage.entity.StateProjection;
+import com.research.garage.entity.ZipCodeProjection;
 import com.research.garage.iservice.IEmployeeRepository;
 
 
@@ -27,6 +33,22 @@ public class EmployeeRepository implements IEmployeeRepository {
 	
 		OrganisationProjection org = organisationDAO.getOne(employeeDTO.getOrganisationId());
 		
+		if(org==null)
+		{
+			return "Organisation ID "+ employeeDTO.getOrganisationId() +" not in the Master";
+		}
+		
+	    if(employeeDTO.getEmployeeName()==null || employeeDTO.getEmployeeName().isEmpty() )
+	    {
+	    	return "Employee Name Required";
+	    }
+		
+	    if(employeeDTO.getMobileNo()==null || employeeDTO.getMobileNo().isEmpty() )
+	    {
+	    	return "Employee Mobile Number Required";
+	    }
+		
+	    
 		EmployeeProjection employee = new EmployeeProjection();
 		
 		employee.setEmployee_Name(employeeDTO.getEmployeeName());

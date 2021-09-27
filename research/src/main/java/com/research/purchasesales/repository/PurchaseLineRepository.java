@@ -3,9 +3,11 @@ package com.research.purchasesales.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.research.purchasesales.dao.PurchaseDAO;
 import com.research.purchasesales.dao.PurchaseLineDAO;
 import com.research.purchasesales.dto.PurchaseLineDTO;
 import com.research.purchasesales.entity.PurchaseLineProjection;
+import com.research.purchasesales.entity.PurchaseProjection;
 import com.research.purchasesales.iservice.IPurchaseLineRepository;
 
 
@@ -15,11 +17,17 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 
 	@Autowired
 	private PurchaseLineDAO purchaseLineDAO;
+	@Autowired
+	private PurchaseDAO purchaseDAO;
 	
 	@Override
 	public String AddPurchaseLine(PurchaseLineDTO purchaseLineDTO) {
 		PurchaseLineProjection purchaseLine = new PurchaseLineProjection();
-		
+		PurchaseProjection purchase = purchaseDAO.getOne(purchaseLineDTO.getPurchaseid());
+		if(purchase==null)
+		{
+			return "Purchase ID "+ purchaseLineDTO.getPurchaseid() +" not in the Master";
+		}
 		purchaseLine.setPurchaselineno(purchaseLineDTO.getPurchaselineno());
 		purchaseLine.setQty(purchaseLineDTO.getQty());
 		purchaseLine.setTax(purchaseLineDTO.getTax());
@@ -27,6 +35,7 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 		purchaseLine.setHSN(purchaseLineDTO.getHSN());
 		purchaseLine.setItemcode(purchaseLineDTO.getItemcode());
 		purchaseLine.setPrice(purchaseLineDTO.getPrice());
+		purchaseLine.setPurcahseID(purchaseLineDTO.getPurchaseid());
 		
 		purchaseLineDAO.save(purchaseLine);
 		
@@ -48,6 +57,7 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 		purchaseLineDTO.setHSN(purchaseLine.getHSN());
 		purchaseLineDTO.setItemcode(purchaseLine.getItemcode());
 		purchaseLineDTO.setPrice(purchaseLine.getPrice());
+		purchaseLineDTO.setPurchaseid(purchaseLine.getPurcahseID());
 		
 		
 		
@@ -64,7 +74,11 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 	public String updatePurchaseLine(PurchaseLineDTO purchaseLineDTO) {
 		
 		PurchaseLineProjection purchaseLine = purchaseLineDAO.getOne(purchaseLineDTO.getPurcahseLineId());
-		
+		PurchaseProjection purchase = purchaseDAO.getOne(purchaseLineDTO.getPurchaseid());
+		if(purchase==null)
+		{
+			return "Purchase ID "+ purchaseLineDTO.getPurchaseid() +" not in the Master";
+		}
 		purchaseLine.setPurchaselineno(purchaseLineDTO.getPurchaselineno());
 		purchaseLine.setQty(purchaseLineDTO.getQty());
 		purchaseLine.setTax(purchaseLineDTO.getTax());
@@ -72,7 +86,7 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 		purchaseLine.setHSN(purchaseLineDTO.getHSN());
 		purchaseLine.setItemcode(purchaseLineDTO.getItemcode());
 		purchaseLine.setPrice(purchaseLineDTO.getPrice());
-		
+		purchaseLine.setPurcahseID(purchaseLineDTO.getPurchaseid());
 		purchaseLineDAO.save(purchaseLine);
 		
 		

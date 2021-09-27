@@ -33,9 +33,18 @@ public class GarageDAOReposiory implements IGarageRepository {
 	@Override
 	public String savegaragedetail(GarageDTO garageDTO) {
 		
-		CountryProjection country = countryDAO.getOne(garageDTO.getCountryID());
 		OrganisationProjection org = OrganisationDAO.getOne(garageDTO.getOrgId());
 		// TODO Auto-generated method stub
+		if(org==null)
+		{
+			return "Organisation ID "+ garageDTO.getOrgId() +" not in the Master";
+		}
+		
+		CountryProjection country = countryDAO.getOne(garageDTO.getCountryID());
+		if(country==null)
+		{
+			return "Country ID "+ garageDTO.getCountryID() +" not in the Master";
+		}
 		GarageProjection garagepro = new GarageProjection();
 		garagepro.setAddress(garageDTO.getAddress());
 		garagepro.setCurrency(garageDTO.getCurrency());

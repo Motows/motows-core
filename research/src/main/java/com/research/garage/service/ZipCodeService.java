@@ -44,4 +44,10 @@ public class ZipCodeService {
 	public List<ZipCodeDTO> getAllZipCodes(){
 		return this.ZipCodeRepository.getAllZipCodes();
 	}
+
+
+	public List<ZipCodeDTO> getListForCountry(String countryID) {
+		// TODO Auto-generated method stub
+		return this.ZipCodeRepository.getListForCountry(countryID);
+	}
 }

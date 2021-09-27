@@ -1,5 +1,7 @@
 package com.research.sparecat.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,11 @@ public class OrgMaterialService {
 
 	public OrgMaterialDTO getorgmaterialById(String orgmatId) {
 		return this.OrgMaterialRepository.getorgmaterialById(orgmatId);
+	}
+
+	public List<OrgMaterialDTO> getorgmaterialByOrgIDPartID(String orgId, String partID) {
+		// TODO Auto-generated method stub
+		return this.OrgMaterialRepository.getorgmaterialByOrgIDPartID(orgId,partID);
 	}
 
 }

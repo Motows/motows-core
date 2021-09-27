@@ -34,10 +34,29 @@ public class ZipCodeRepository implements IZipCodeRepository {
 		CountryProjection country = countryDAO.getOne(zipCodeDTO.getCountryId());
 		StateProjection state = stateDAO.getOne(zipCodeDTO.getStateId());
 		ZipCodeProjection zipCode = new ZipCodeProjection();
+		if(zipCodeDTO.getZipCodeId()==null||zipCodeDTO.getZipCodeId().isEmpty())
+		{
+			return "Zip Code  "+ zipCodeDTO.getZipCodeId() +" Should Not Be Empty";
+		}
+		ZipCodeProjection zipCode1 = ZipCodeDAO.getOne(zipCodeDTO.getZipCodeId());
+		if(zipCode1!=null)
+		{
+			return "Zip Code  "+ zipCodeDTO.getZipCodeId() +" Already Available";
+		}
+		if(country==null)
+		{
+			return "Country ID "+ zipCodeDTO.getCountryId() +" not in the Master";
+		}
+		if(state==null)
+		{
+			return "State ID "+ zipCodeDTO.getStateId() +" not in the Master";
+		}
+		
+		
 		zipCode.setZip_Code_Id(zipCodeDTO.getZipCodeId());
 		zipCode.setCity_Name(zipCodeDTO.getCityName());
-		zipCode.setCountry(country);
-		zipCode.setState(state);
+		zipCode.setCountry_Id(zipCodeDTO.getCountryId());
+		zipCode.setState_Id(zipCodeDTO.getStateId());
 
 		ZipCodeDAO.save(zipCode);
 
@@ -53,8 +72,8 @@ public class ZipCodeRepository implements IZipCodeRepository {
 
 		zipCodeDTO.setCityName(zipCode.getCity_Name());
 		zipCodeDTO.setZipCodeId(zipCode.getZip_Code_Id());
-		zipCodeDTO.setStateId(zipCode.getState().getState_Id());
-		zipCodeDTO.setCountryId(zipCode.getCountry().getCountryID());
+		zipCodeDTO.setStateId(zipCode.getState_Id());
+		zipCodeDTO.setCountryId(zipCode.getCountry_Id());
 
 		return zipCodeDTO;
 	}
@@ -76,12 +95,29 @@ public class ZipCodeRepository implements IZipCodeRepository {
 
 	@Override
 	public List<ZipCodeDTO> getAllZipCodes() {
-		List<ZipCodeProjection> allZipCodes = ZipCodeDAO.findAll();
+		List<ZipCodeProjection> allZipCodes = ZipCodeDAO.getAll();
 		List<ZipCodeDTO> allZipCodesDTO = new ArrayList<ZipCodeDTO>();
 		for (ZipCodeProjection zipCode : allZipCodes) {
 			ZipCodeDTO zipCodeDTO = new ZipCodeDTO();
-			zipCodeDTO.setStateId(zipCode.getState().getState_Id());
-			zipCodeDTO.setCountryId(zipCode.getCountry().getCountryID());
+			zipCodeDTO.setStateId(zipCode.getState_Id());
+			zipCodeDTO.setCountryId(zipCode.getCountry_Id());
+			zipCodeDTO.setCityName(zipCode.getCity_Name());
+			zipCodeDTO.setZipCodeId(zipCode.getZip_Code_Id());
+
+			allZipCodesDTO.add(zipCodeDTO);
+
+		}
+		return allZipCodesDTO;
+	}
+	
+	@Override
+	public List<ZipCodeDTO> getListForCountry(String countryId) {
+		List<ZipCodeProjection> allZipCodes = ZipCodeDAO.getListForCountry(countryId);
+		List<ZipCodeDTO> allZipCodesDTO = new ArrayList<ZipCodeDTO>();
+		for (ZipCodeProjection zipCode : allZipCodes) {
+			ZipCodeDTO zipCodeDTO = new ZipCodeDTO();
+			zipCodeDTO.setStateId(zipCode.getState_Id());
+			zipCodeDTO.setCountryId(zipCode.getCountry_Id());
 			zipCodeDTO.setCityName(zipCode.getCity_Name());
 			zipCodeDTO.setZipCodeId(zipCode.getZip_Code_Id());
 

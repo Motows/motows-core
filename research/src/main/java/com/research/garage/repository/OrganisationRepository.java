@@ -27,7 +27,10 @@ public class OrganisationRepository implements IOrganisationRepository {
 		
 		CountryProjection country = countryDAO.getOne(organisationDTO.getCountryId());
 		
-		
+		if(country==null)
+		{
+			return "Country ID "+ organisationDTO.getCountryId() +" not in the Master";
+		}
 		
 		OrganisationProjection org = new OrganisationProjection();
 		

@@ -28,5 +28,7 @@ public class JobItemsDTO {
 	private Double Tax;
 
 	private String hsnAndSac;
+	private String job_cardid;
+	private String item_status;
 
 }

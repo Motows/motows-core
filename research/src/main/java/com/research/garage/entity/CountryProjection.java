@@ -37,13 +37,13 @@ import lombok.NoArgsConstructor;
 
 public class CountryProjection {
 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "demo_sql")
-	@GenericGenerator(name = "demo_sql",strategy = "com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator",parameters = {
-			
-			@Parameter(name = StringPrefixedSequenceGenerator.INCREMENT_PARAM,value = "1"),
-			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER,value = "CUNT_"),
-			@Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMATE_PARAMETER,value = "%05d"),
-	} )
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "demo_sql")
+//	@GenericGenerator(name = "demo_sql",strategy = "com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator",parameters = {
+//			
+//			@Parameter(name = StringPrefixedSequenceGenerator.INCREMENT_PARAM,value = "1"),
+//			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER,value = "CUNT_"),
+//			@Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMATE_PARAMETER,value = "%05d"),
+//	} )
 	@Id
 	@Column(updatable = false, nullable = false, length = 50)
 	private String CountryID;
@@ -69,21 +69,21 @@ public class CountryProjection {
 	@JoinTable(name = "OrganisationCountry", joinColumns = @JoinColumn(name = "CountryID"), inverseJoinColumns = @JoinColumn(name = "OrgID"))
 	private List<OrganisationProjection> organisation;
 
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.REMOVE }, mappedBy = "country")
-	private List<StateProjection> states;
+//	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+//			CascadeType.REMOVE }, mappedBy = "country")
+//	private List<StateProjection> states;
 
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.REMOVE }, mappedBy = "country")
-	private List<ZipCodeProjection> zipCode;
+//	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+//			CascadeType.REMOVE }, mappedBy = "country")
+//	private List<ZipCodeProjection> zipCode;
 
 //	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
 //			CascadeType.REMOVE }, mappedBy = "country")
 //	private List<CustomerProjection> customer;
 	
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.REMOVE }, mappedBy = "country")
-	private List<VendorProjection> Vendors;
+//	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+//			CascadeType.REMOVE }, mappedBy = "country")
+//	private List<VendorProjection> Vendors;
 
 	public void addOrganisation(OrganisationProjection theOrganisation) {
 

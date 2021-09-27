@@ -1,5 +1,7 @@
 package com.research.vehicle.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,4 +12,8 @@ import com.research.vehicle.entity.ModelProjection;
 public interface ModelDAO extends JpaRepository<ModelProjection, String> {
 	@Query(value = "Select * FROM model  where model_id=?1 ", nativeQuery = true)
 	ModelProjection getOne(String model_id);
+	
+	@Query(value = "Select * FROM model", nativeQuery = true)
+	List<ModelProjection> getModelList();
+	
 }

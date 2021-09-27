@@ -1,5 +1,7 @@
 package com.research.garage.iservice;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.research.garage.dto.VendorDTO;
@@ -14,5 +16,7 @@ public interface IVendorRepository {
 	String deleteVendorByID(String vendorId);
 
 	String updateVenorDetails(VendorDTO vendorDTO);
+
+	List<VendorDTO> getVendorByOrgID(String orgID);
 
 }

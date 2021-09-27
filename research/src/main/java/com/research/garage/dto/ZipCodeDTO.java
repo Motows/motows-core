@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 public class ZipCodeDTO {
-
 	
 	private String zipCodeId;
 	

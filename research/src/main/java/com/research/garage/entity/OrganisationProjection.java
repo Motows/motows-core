@@ -76,8 +76,8 @@ public class OrganisationProjection {
 //	private List<CustomerProjection> customers;
 	
 	
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")  
-	private List<VendorProjection> Vendors;
+//	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")  
+//	private List<VendorProjection> Vendors;
 	
 	
 	

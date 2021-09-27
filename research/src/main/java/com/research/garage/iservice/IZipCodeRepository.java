@@ -19,5 +19,6 @@ public interface IZipCodeRepository {
 	String UpdateZipCode(ZipCodeDTO ZipCodeDTO);
 	
 	List<ZipCodeDTO> getAllZipCodes();
+	List<ZipCodeDTO> getListForCountry(String countryId);
 	
 }

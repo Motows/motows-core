@@ -19,6 +19,9 @@ public interface CustomerDAO extends JpaRepository<CustomerProjection, String> {
 	@Query(value = "Select * FROM Customer  where mobile_no=?1 ", nativeQuery = true)
 	List<CustomerProjection> getList(String mobile_no) ;
 	
+	@Query(value = "Select * FROM Customer  where customer_id=?1 ", nativeQuery = true)
+	CustomerProjection getCustomer(String customer_id) ;
+	
 	@Query(value = "Select * FROM Customer  where mobile_no=?1 and organisation_id=?2 ", nativeQuery = true)
 	List<CustomerProjection> getCustomerListMobID_OrgID(String mobile_no,String organisation_id) ;
 	

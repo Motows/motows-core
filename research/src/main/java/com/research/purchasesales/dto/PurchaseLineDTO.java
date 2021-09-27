@@ -28,6 +28,8 @@ public class PurchaseLineDTO {
 	
 	private String HSN;
 	
+	private String Purchaseid;
+	
 	
 	
 }

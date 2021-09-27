@@ -1,8 +1,11 @@
 package com.research.vehicle.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.research.vehicle.dto.BrandDTO;
 import com.research.vehicle.dto.ModelDTO;
 import com.research.vehicle.iservice.IModelRepository;
 
@@ -29,5 +32,10 @@ public class ModelService {
 	
 	public String updateMode(ModelDTO modelDTO) {
 		return this.modelRepository.updateModel(modelDTO);
+	}
+
+	public List<ModelDTO> getAllModel() {
+		// TODO Auto-generated method stub
+		return this.modelRepository.getAllModel();
 	}
 }

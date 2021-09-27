@@ -33,7 +33,7 @@ public class MaterialProjection {
 	@GenericGenerator(name = "demo_sql",strategy = "com.research.research.outputadapters.entity.StringPrefixedSequenceGenerator",parameters = {
 			
 			@Parameter(name = StringPrefixedSequenceGenerator.INCREMENT_PARAM,value = "1"),
-			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER,value = "MOD_"),
+			@Parameter(name = StringPrefixedSequenceGenerator.VALUE_PREFIX_PARAMETER,value = "Part_"),
 			@Parameter(name = StringPrefixedSequenceGenerator.NUMBER_FORMATE_PARAMETER,value = "%05d"),
 	
 	} )

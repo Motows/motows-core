@@ -64,7 +64,8 @@ public class PurchaseProjection  {
 //	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 //		@JoinColumn(name="GarageID")
 //		private GarageProjection garage;
-	
+	  @Column(length = 100)
+	    private String GarageID;
 	  @CreatedDate
 	private Date Entry_Date;
     @Column(length = 100)
@@ -75,18 +76,18 @@ public class PurchaseProjection  {
     private Date Supplierref_Posting_Date;
     @Column(length = 50)
     private String Jobno;
-    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "Purchase") 
-    @ToString.Exclude
-	private List<PurchaseLineProjection> Purchaseline;
+//    @OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "Purchase") 
+//    @ToString.Exclude
+//	private List<PurchaseLineProjection> Purchaseline;
     
     
-	public void add(PurchaseLineProjection theItems) {
-		if(Purchaseline==null) {
-			Purchaseline= new ArrayList<PurchaseLineProjection>();
-		}
-		Purchaseline.add(theItems);
-		theItems.setPurchase(this);
-	}
+//	public void add(PurchaseLineProjection theItems) {
+//		if(Purchaseline==null) {
+//			Purchaseline= new ArrayList<PurchaseLineProjection>();
+//		}
+//		Purchaseline.add(theItems);
+//		theItems.setPurchase(this);
+//	}
 
 	
 

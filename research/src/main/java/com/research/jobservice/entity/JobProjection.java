@@ -56,6 +56,8 @@ public class JobProjection {
 	private int Price;
 	@Column(length = 100)
 	private String jobStatus;
+	@Column(length = 100)
+	private String job_type;
 	
 
 

@@ -23,6 +23,15 @@ public class CountryRepository implements ICountryRepository {
 	public String saveCountry(CountryDTO countryDTO) {
 
 		CountryProjection country = new CountryProjection();
+		String countryId=countryDTO.getCountryID();
+		if(countryId==null || countryId.isBlank())
+		{
+			return "Country ID Required";
+		}
+		if(countryDAO.getOne(countryId)!=null)
+		{
+			return "Country ID Already Available";
+		}
 		country.setCountryID(countryDTO.getCountryID());
 		country.setCountry_Long_Name(countryDTO.getCountryLongName());
 		country.setCountry_Long_Name_Caption(countryDTO.getCountryLongNameCaption());
