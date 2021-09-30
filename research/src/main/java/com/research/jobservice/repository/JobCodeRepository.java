@@ -97,6 +97,29 @@ public class JobCodeRepository implements IJobCodeRepositry{
 	@Override
 	public String UpdateJobDetails(JobCodeDTO jobcodeto) {
 		JobCardProjection Jobcard =	JobCodeDAO.getOne(jobcodeto.getJobCardID());
+		if(jobcodeto.getCustomerID()==null || jobcodeto.getCustomerID()=="")
+		{
+			return "CustomerID Required";
+		}
+		
+		if(jobcodeto.getEmployeeID()==null || jobcodeto.getEmployeeID()=="")
+		{
+			return "EmployeeID Required";
+		}
+		
+		
+		if(vinDAO.getOne(jobcodeto.getVehicleRegNo())==null)
+		{
+			return "Vehicle Not Found";
+		}
+		
+	
+		
+		if(organisationDAO.getOne(jobcodeto.getOrganisationID())==null)
+		{
+			return "Organization Not Found";
+		}
+	
 		Jobcard.setJob_CardID(jobcodeto.getJobCardID());
 		Jobcard.setOrganisationID(jobcodeto.getOrganisationID());
 		Jobcard.setJob_Card_Type(jobcodeto.getJobCardType());

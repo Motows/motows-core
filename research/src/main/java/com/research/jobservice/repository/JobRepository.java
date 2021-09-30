@@ -122,14 +122,35 @@ public class JobRepository implements IJobRepository {
 	@Override
 	public String UpdateJobDetails(JobDTO jobdto) {
 		JobProjection job = jobDAO.getOne(jobdto.getJobID());
-		job.setJobID(job.getJobID());
-		job.setJobCardID(job.getJobCardID());
-		job.setGarageid(job.getGarageid());
-		job.setOrganisationID(job.getOrganisationID());
-		job.setJob_Description(job.getJob_Description());
-		job.setJobStatus(job.getJobStatus());
-		job.setPrice(job.getPrice());
-		job.setJob_type(job.getJob_type());
+		
+		if(jobCodeDAO.getOne(jobdto.getJobCardID())==null)
+		{
+			return "JobCardID Required";
+		}
+		job.setJobCardID(jobdto.getJobCardID());
+		
+		if(garageDAO.getOne(jobdto.getGarageid())==null)
+		{
+			return "Garage ID Not Found";
+		}
+		job.setGarageid(jobdto.getGarageid());
+		if(OrganisationDAO.getOne(jobdto.getOrganisationID())==null)
+		{
+			return "Organization Not Found";
+		}
+		if(!(jobdto.getJobtype().equals("Job") || jobdto.getJobtype().equals("Voice")))
+		{
+			return "Job type should be Job or Voice";
+		}
+		
+		job.setJobID(jobdto.getJobID());
+		job.setJobCardID(jobdto.getJobCardID());
+		job.setGarageid(jobdto.getGarageid());
+		job.setOrganisationID(jobdto.getOrganisationID());
+		job.setJob_Description(jobdto.getJob_Description());
+		job.setJobStatus(jobdto.getJobStatus());
+		job.setPrice(jobdto.getPrice());
+		job.setJob_type(jobdto.getJobtype());
 		jobDAO.save(job);
 		return "updated";
 	}

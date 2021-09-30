@@ -79,6 +79,7 @@ public class JobTemplateRepository implements IJobTemplateRepository {
 		jtpro.setOrganisationId(jtdto.getOrganisation_Id());
 		jtpro.setJobTemplateId(jtdto.getJob_Template_Id());
 		jtpro.setCategory(jtdto.getCategory());
+		jtpro.setPrice(jtdto.getPrice());
 		return jtpro;
 		
 	}
@@ -94,6 +95,28 @@ public class JobTemplateRepository implements IJobTemplateRepository {
 	@Override
 	public String updateJTDetails(JobTemplateDTO jtdto) {
 		JobTemplateProjection jtpro = jobTemplateDAO.getOne(jtdto.getJobTemplateId());
+		
+		if(jtdto.getCategory()==null || jtdto.getCategory()=="")
+		{
+			return "Category Required";
+		}
+		
+		
+		if(garageDAO.getOne(jtdto.getGarageId())==null)
+		{
+			return "Garage Not Found";
+		}
+		
+		if(modelDAO.getOne(jtdto.getModelId())==null)
+		{
+			return "Model Not Found";
+		}
+		
+		if(organisationDAO.getOne(jtdto.getOrganisationId())==null)
+		{
+			return "Organization Not Found";
+		}
+		
 		jtpro.setGarage_Id(jtdto.getGarageId());
 		jtpro.setJob_Template_Caption(jtdto.getJobTemplateCaption());
 		jtpro.setJob_Template_Discription(jtdto.getJobTemplateDiscription());
