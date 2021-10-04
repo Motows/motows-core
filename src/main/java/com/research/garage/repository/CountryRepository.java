@@ -24,7 +24,7 @@ public class CountryRepository implements ICountryRepository {
 
 		CountryProjection country = new CountryProjection();
 		String countryId=countryDTO.getCountryID();
-		if(countryId==null || countryId.isBlank())
+		if(countryId==null || countryId.isEmpty())
 		{
 			return "Country ID Required";
 		}

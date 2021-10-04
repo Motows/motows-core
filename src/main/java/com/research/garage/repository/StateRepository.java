@@ -33,7 +33,7 @@ public class StateRepository implements IStateRepository {
 			return "Country ID "+ stateDTO.getCountryId() +" not in the Master";
 		}
 		String stateID=stateDTO.getStateId();
-		if(stateID==null || stateID.isBlank())
+		if(stateID==null || stateID.isEmpty())
 		{
 			return "State ID Required";
 		}
