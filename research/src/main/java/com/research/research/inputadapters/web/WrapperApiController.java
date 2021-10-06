@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.research.garage.dto.VehicelDetailsDTO;
+import com.research.purchasesales.dto.PurchaseDTO;
 import com.research.research.applicationservices.api.WrapperService;
 import com.research.research.outputadapters.repositories.VehicelDetailsListDTO;
 import com.research.research.outputadapters.repositories.Vin;
@@ -28,7 +29,6 @@ public class WrapperApiController {
 		return this.wrapperService.getVehicleDetails(mobileNo);
 
 	}
-	
 
 	@GetMapping("/getVehicleByCustomer/{mobileNo}/{orgId}")
 	public List<VehicelDetailsDTO> getVehicleByCustomer(@PathVariable String mobileNo,@PathVariable String orgId) {
@@ -48,7 +48,11 @@ public class WrapperApiController {
 	{
 		return this.wrapperService.getEstimateByJobCardID(jobCardId);
 	}
-	
-	
+	@GetMapping("/getPurchaseDetailsList/{organisation_id}/{fromdate}/{todate}")
+	public List<PurchaseDetailsDTO> getPurchaseDetailsList(@PathVariable String organisation_id,
+			@PathVariable  String fromdate,@PathVariable  String todate) {
+		// TODO Auto-generated method stub
+		return this.wrapperService.getPurchaseDetailsList(organisation_id,fromdate,todate);
+	}
 
 }

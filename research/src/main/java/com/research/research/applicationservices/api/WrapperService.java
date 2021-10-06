@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.research.garage.dto.VehicelDetailsDTO;
 import com.research.research.applicationservices.spi.IWrapperRepository;
 import com.research.research.inputadapters.web.EstimateDTO;
+import com.research.research.inputadapters.web.PurchaseDetailsDTO;
 import com.research.research.outputadapters.repositories.VehicelDetailsListDTO;
 import com.research.research.outputadapters.repositories.Vin;
 
@@ -32,6 +33,10 @@ public class WrapperService {
 	public EstimateDTO getEstimateByJobCardID(String jobCardId) {
 		// TODO Auto-generated method stub
 		return this.wrapperRepository.getEstimateByJobCardID(jobCardId);
+	}
+	public List<PurchaseDetailsDTO> getPurchaseDetailsList(String organisation_id, String fromdate, String todate) {
+		// TODO Auto-generated method stub
+		return this.wrapperRepository.getPurchaseDetailsList(organisation_id,fromdate,todate);
 	}
 
 }

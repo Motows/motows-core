@@ -1,4 +1,7 @@
 package com.research.finance.controller;
+import java.text.ParseException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import com.research.finance.service.PaymentService;
 import io.swagger.annotations.Api;
 
 import com.research.finance.dto.PaymentDTO;
+import com.research.finance.dto.ReceiptDTO;
 @RestController
 @RequestMapping("api/Payment")
 @Api(description = "Payment Controller", tags = { "Finance Payment" })
@@ -39,6 +43,10 @@ public class FinancePaymentController {
 	public String UpdatePaymenteRequest(@RequestBody PaymentDTO paymentDTO) {
 		return this.PaymentService.UpdatePaymenteRequest(paymentDTO);
 	}
-	
+	@GetMapping("/{organisation_id}/{fromdate}/{todate}")
+	public List<PaymentDTO> getPaymentList(@PathVariable String organisation_id,@PathVariable String fromdate,@PathVariable String todate) throws ParseException {
+
+		return this.PaymentService.getPaymentList(organisation_id,fromdate,todate);
+	}
 	
 }

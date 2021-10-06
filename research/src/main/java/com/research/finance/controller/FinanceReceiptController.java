@@ -1,5 +1,8 @@
 package com.research.finance.controller;
 
+import java.text.ParseException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +37,12 @@ public class FinanceReceiptController {
 	public ReceiptDTO getReceiptById(@PathVariable String receiptId) {
 
 		return this.receiptService.getReceiptById(receiptId);
+	}
+	
+	@GetMapping("/{organisation_id}/{fromdate}/{todate}")
+	public List<ReceiptDTO> getReceiptList(@PathVariable String organisation_id,@PathVariable String fromdate,@PathVariable String todate) throws ParseException {
+
+		return this.receiptService.getReceiptList(organisation_id,fromdate,todate);
 	}
 
 	@DeleteMapping("/{receiptId}")

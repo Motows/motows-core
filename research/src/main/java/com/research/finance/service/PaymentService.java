@@ -1,5 +1,8 @@
 package com.research.finance.service;
 
+import java.text.ParseException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +28,11 @@ public class PaymentService {
 
 	public String UpdatePaymenteRequest(PaymentDTO paymentDTO) {
 		return this.PaymentRepository.UpdatePaymenteRequest(paymentDTO);
+	}
+
+	public List<PaymentDTO> getPaymentList(String organisation_id, String fromdate, String todate) throws ParseException {
+		// TODO Auto-generated method stub
+		return this.PaymentRepository.getPaymentList(organisation_id, fromdate, todate);
 	}
 
 }

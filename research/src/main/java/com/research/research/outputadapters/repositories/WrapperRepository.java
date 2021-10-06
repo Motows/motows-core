@@ -25,8 +25,15 @@ import com.research.jobservice.dto.JobItemsDTO;
 import com.research.jobservice.entity.JobCardProjection;
 import com.research.jobservice.entity.JobItemsProjection;
 import com.research.jobservice.entity.JobProjection;
+import com.research.purchasesales.dao.PurchaseDAO;
+import com.research.purchasesales.dao.PurchaseLineDAO;
+import com.research.purchasesales.dto.PurchaseDTO;
+import com.research.purchasesales.dto.PurchaseLineDTO;
+import com.research.purchasesales.entity.PurchaseLineProjection;
+import com.research.purchasesales.entity.PurchaseProjection;
 import com.research.research.applicationservices.spi.IWrapperRepository;
 import com.research.research.inputadapters.web.EstimateDTO;
+import com.research.research.inputadapters.web.PurchaseDetailsDTO;
 import com.research.vehicle.entity.ColorProjection;
 import com.research.vehicle.entity.ModelProjection;
 import com.research.vehicle.entity.VINProjection;
@@ -52,6 +59,12 @@ public class WrapperRepository implements IWrapperRepository {
 //
 	@Autowired
 	private CustomerDAO customerDAO;
+	
+	@Autowired
+	private PurchaseDAO purchaseDAO;
+	
+	@Autowired
+	private PurchaseLineDAO purchaseLineDAO;
 //
 //	@Autowired
 //	EntityManager entityManager;
@@ -312,5 +325,47 @@ public class WrapperRepository implements IWrapperRepository {
 		return estimateDTO;
 	}
 
+
+	@Override
+	public List<PurchaseDetailsDTO> getPurchaseDetailsList(String organisation_id, String fromdate, String todate) {
+		// TODO Auto-generated method stub
+		List<PurchaseDetailsDTO> purchaseDetailsDTOList = new ArrayList<PurchaseDetailsDTO>();
+		List<PurchaseProjection> purchaseList = purchaseDAO.getPurchaseList(organisation_id,fromdate,todate);
+		for(PurchaseProjection purchase:purchaseList)
+		{
+		PurchaseDetailsDTO purchaseDetailsDTO = new PurchaseDetailsDTO();
+		List<PurchaseLineDTO> purchaseLineDTOList= new ArrayList<PurchaseLineDTO>();
+		PurchaseDTO response = new PurchaseDTO();
+		response.setPurcahseID(purchase.getPurcahseID());
+		response.setEntryType(purchase.getEntry_Type());
+		response.setOrganisationID(purchase.getOrganisationID());
+		response.setVendorID(purchase.getVendorID());
+		response.setEntryDate(purchase.getEntry_Date());
+		response.setSupplierrefno(purchase.getSupplierrefno());
+		response.setSupplierrefPostingDate(purchase.getSupplierref_Posting_Date());
+		response.setJobno(purchase.getJobno());
+		response.setGarageID(purchase.getGarageID());	
+		purchaseDetailsDTO.setPurchase(response);
+		List<PurchaseLineProjection> purchaseLineList = purchaseLineDAO.getPurchaseLineList(purchase.getPurcahseID());
+		for(PurchaseLineProjection purchaseLine:purchaseLineList)
+		{
+			PurchaseLineDTO purchaseLineDTO = new PurchaseLineDTO();
+			purchaseLineDTO.setPurcahseLineId(purchaseLine.getPurcahse_Line_Id());
+			purchaseLineDTO.setPurchaselineno(purchaseLine.getPurchaselineno());
+			purchaseLineDTO.setQty(purchaseLine.getQty());
+			purchaseLineDTO.setTax(purchaseLine.getTax());
+			purchaseLineDTO.setUom(purchaseLine.getUom());
+			purchaseLineDTO.setHSN(purchaseLine.getHSN());
+			purchaseLineDTO.setItemcode(purchaseLine.getItemcode());
+			purchaseLineDTO.setPrice(purchaseLine.getPrice());
+			purchaseLineDTO.setPurchaseid(purchaseLine.getPurcahseID());
+			purchaseLineDTOList.add(purchaseLineDTO);
+		}
+		purchaseDetailsDTO.setPurchaseLine(purchaseLineDTOList);
+		purchaseDetailsDTOList.add(purchaseDetailsDTO);
+	}
+		
+	return purchaseDetailsDTOList;
+	}
 
 }

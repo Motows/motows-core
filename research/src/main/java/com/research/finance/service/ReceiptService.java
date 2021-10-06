@@ -1,5 +1,8 @@
 package com.research.finance.service;
 
+import java.text.ParseException;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,11 @@ public class ReceiptService {
 	public String UpdateReceipt(ReceiptDTO receiptDTO) {
 
 		return this.receiptRepository.UpdateReceipt(receiptDTO);
+	}
+
+	public List<ReceiptDTO> getReceiptList(String organisation_id, String fromdate,String todate) throws ParseException {
+		// TODO Auto-generated method stub
+		return this.receiptRepository.getReceiptList(organisation_id,fromdate,todate);
 	}
 
 }

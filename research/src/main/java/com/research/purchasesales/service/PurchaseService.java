@@ -1,9 +1,12 @@
 package com.research.purchasesales.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.research.purchasesales.dto.PurchaseDTO;
+import com.research.purchasesales.dto.PurchaseLineDTO;
 import com.research.purchasesales.iservice.IPurchaseRepository;
 
 @Component
@@ -26,5 +29,7 @@ public class PurchaseService {
 	public String updatePurchaseReq(PurchaseDTO purchaseDTO) {
 		return	this.PurchaseRepository.updatePurchaseReq(purchaseDTO);
 	}
+	
+	
 
 }
