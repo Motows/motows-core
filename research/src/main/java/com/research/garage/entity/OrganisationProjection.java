@@ -59,12 +59,15 @@ public class OrganisationProjection {
 	@Column(length = 10)
 	private String PANNo;
 	
+	@Column(length = 10)
+	private String CountryID;
+	
 
-	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinTable(name = "OrganisationCountry",
-	joinColumns = @JoinColumn(name="OrgID"),
-	inverseJoinColumns = @JoinColumn(name="CountryID"))
-	private List<CountryProjection> Country;
+//	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinTable(name = "OrganisationCountry",
+//	joinColumns = @JoinColumn(name="OrgID"),
+//	inverseJoinColumns = @JoinColumn(name="CountryID"))
+//	private List<CountryProjection> Country;
 	
 	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")
 	private List<GarageProjection> garage;
@@ -81,13 +84,13 @@ public class OrganisationProjection {
 	
 	
 	
-public void addCountry(CountryProjection theCountry) {
-	
-	if(Country==null) {
-		Country= new ArrayList<>();
-	}
-	Country.add(theCountry);
-}
+//public void addCountry(CountryProjection theCountry) {
+//	
+//	if(Country==null) {
+//		Country= new ArrayList<>();
+//	}
+//	Country.add(theCountry);
+//}
 
 
 	

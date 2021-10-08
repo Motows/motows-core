@@ -40,7 +40,7 @@ public class OrganisationRepository implements IOrganisationRepository {
 		org.setOrganisation_Caption(organisationDTO.getOrganisationCaption());
 		org.setTanentID(organisationDTO.getTanentID());
 		
-		org.addCountry(country);
+		org.setCountryID(organisationDTO.getCountryId());
 		OrganisationDAO.save(org);
 
 		return "Organisation Saved";
@@ -59,7 +59,7 @@ public class OrganisationRepository implements IOrganisationRepository {
 		response.setPANNo(org.getPANNo());
 		response.setTanentID(org.getTanentID());
 		response.setOrgID(org.getOrgID());
-		response.setCountryId(org.getCountry().get(0).getCountryID());
+		//response.setCountryId(org.getCountry());
 	
 		return response;
 	}
