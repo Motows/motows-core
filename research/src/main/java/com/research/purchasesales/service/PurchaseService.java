@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.research.purchasesales.dto.PurchaseDTO;
 import com.research.purchasesales.dto.PurchaseLineDTO;
+import com.research.purchasesales.dto.PurchaseWithLineDTO;
 import com.research.purchasesales.iservice.IPurchaseRepository;
 
 @Component
@@ -28,6 +29,11 @@ public class PurchaseService {
 
 	public String updatePurchaseReq(PurchaseDTO purchaseDTO) {
 		return	this.PurchaseRepository.updatePurchaseReq(purchaseDTO);
+	}
+
+	public String AddPurchaseRequestWithLine(PurchaseWithLineDTO purchaseDTO) {
+		// TODO Auto-generated method stub
+		return	this.PurchaseRepository.AddPurchaseWithLineRequest(purchaseDTO);
 	}
 	
 	

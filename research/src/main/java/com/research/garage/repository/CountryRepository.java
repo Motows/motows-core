@@ -50,7 +50,7 @@ public class CountryRepository implements ICountryRepository {
 		CountryProjection country = countryDAO.getOne(countryionId);
 
 		CountryDTO countryDTO = new CountryDTO();
-
+		countryDTO.setCountryID(country.getCountryID());
 		countryDTO.setCountryLongName(country.getCountry_Long_Name());
 		countryDTO.setCountryLongNameCaption(country.getCountry_Long_Name_Caption());
 		countryDTO.setCountryLongNameUI(country.getCountry_Long_NameUI());

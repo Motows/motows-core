@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.research.purchasesales.dto.PurchaseDTO;
 import com.research.purchasesales.dto.PurchaseLineDTO;
+import com.research.purchasesales.dto.PurchaseWithLineDTO;
 import com.research.purchasesales.service.PurchaseService;
 
 import io.swagger.annotations.Api;
@@ -29,6 +30,11 @@ public class PSPurchaseController {
 	@PostMapping("/AddPurchaseRequest")
     public String AddPurchaseRequest(@RequestBody PurchaseDTO purchaseDTO){
     	return this.PurchaseService.AddPurchaseRequest(purchaseDTO);
+    }
+	
+	@PostMapping("/AddPurchaseRequestWithLine")
+    public String AddPurchaseRequestWithLine(@RequestBody PurchaseWithLineDTO purchaseDTO){
+    	return this.PurchaseService.AddPurchaseRequestWithLine(purchaseDTO);
     }
 	
 	@GetMapping("/getPurchaseRequest/{purchaseid}")

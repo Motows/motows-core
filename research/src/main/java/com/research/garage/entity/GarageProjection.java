@@ -55,12 +55,17 @@ public class GarageProjection  {
     private String garage_Name;
     @Column(length = 50)
     private String garage_Caption;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="org_Id")
-    private OrganisationProjection organisation;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="CountryID")
-	private CountryProjection country;
+//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="org_Id")
+//    private OrganisationProjection organisation;
+//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="CountryID")
+//	private CountryProjection country;
+    
+    @Column(length = 50)
+    private String org_Id;
+    @Column(length = 50)
+    private String CountryID;
     
     @Column(length = 50)
     private String State;

@@ -53,8 +53,8 @@ public class GarageDAOReposiory implements IGarageRepository {
 		garagepro.setState(garageDTO.getState());
 		garagepro.setGarage_Caption(garageDTO.getGarageCaption());
 		garagepro.setGarage_Name(garageDTO.getGarageName());
-		garagepro.setCountry(country);
-		garagepro.setOrganisation(org);
+		garagepro.setCountryID(garageDTO.getCountryID());
+		garagepro.setOrg_Id(garageDTO.getOrgId());
 		garageDAO.save(garagepro);
 		return "GarageDetails Saved";
 

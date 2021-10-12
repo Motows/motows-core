@@ -63,17 +63,25 @@ public class OrganisationProjection {
 	private String CountryID;
 	
 
+//	@Column(length = 10)
+//	private String CountryID;
+//	
+//
+//	@Column(length = 10)
+//	private String CountryID;
+	
+
 //	@ManyToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 //	@JoinTable(name = "OrganisationCountry",
 //	joinColumns = @JoinColumn(name="OrgID"),
 //	inverseJoinColumns = @JoinColumn(name="CountryID"))
 //	private List<CountryProjection> Country;
 	
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")
-	private List<GarageProjection> garage;
-	
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation") 
-	private List<EmployeeProjection> employee;
+//	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")
+//	private List<GarageProjection> garage;
+//	
+//	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation") 
+//	private List<EmployeeProjection> employee;
 
 //	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.REMOVE}, mappedBy = "organisation")  
 //	private List<CustomerProjection> customers;

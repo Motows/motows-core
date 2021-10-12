@@ -61,13 +61,13 @@ public class CountryProjection {
 	@Column(length = 50)
 	private String Country_Long_NameUI;
 
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
-			CascadeType.REMOVE }, mappedBy = "country")
-	private List<GarageProjection> garage;
-
-	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
-	@JoinTable(name = "OrganisationCountry", joinColumns = @JoinColumn(name = "CountryID"), inverseJoinColumns = @JoinColumn(name = "OrgID"))
-	private List<OrganisationProjection> organisation;
+//	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
+//			CascadeType.REMOVE }, mappedBy = "country")
+//	private List<GarageProjection> garage;
+//
+//	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+//	@JoinTable(name = "OrganisationCountry", joinColumns = @JoinColumn(name = "CountryID"), inverseJoinColumns = @JoinColumn(name = "OrgID"))
+//	private List<OrganisationProjection> organisation;
 
 //	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH,
 //			CascadeType.REMOVE }, mappedBy = "country")
@@ -85,11 +85,11 @@ public class CountryProjection {
 //			CascadeType.REMOVE }, mappedBy = "country")
 //	private List<VendorProjection> Vendors;
 
-	public void addOrganisation(OrganisationProjection theOrganisation) {
-
-		if (organisation == null) {
-			organisation = new ArrayList<>();
-		}
-		organisation.add(theOrganisation);
-	}
+//	public void addOrganisation(OrganisationProjection theOrganisation) {
+//
+//		if (organisation == null) {
+//			organisation = new ArrayList<>();
+//		}
+//		organisation.add(theOrganisation);
+//	}
 }

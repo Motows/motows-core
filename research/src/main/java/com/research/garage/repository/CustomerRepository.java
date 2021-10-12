@@ -142,19 +142,50 @@ public class CustomerRepository implements ICustomerRepository {
 
 	@Override
 	public String UpdateCustomer(CustomerDTO customerDTO) {
+		OrganisationProjection org = organisationDAO.getOne(customerDTO.getOrganisationId());
+
+		if(customerDTO.getCustomerName()=="" || customerDTO.getCustomerName()==null)
+		{
+			return "Customer Name Required";
+		}
+		
+		if(org==null)
+		{
+			return "Organisation ID "+ customerDTO.getOrganisationId() +" not in the Master";
+		}
+		
+		CountryProjection country = countryDAO.getOne(customerDTO.getCountryId());
+		if(country==null)
+		{
+			return "Country ID "+ customerDTO.getCountryId() +" not in the Master";
+		}
+		StateProjection state = stateDAO.getOne(customerDTO.getStateId());
+		if(state==null)
+		{
+			return "State ID "+ customerDTO.getStateId() +" not in the Master";
+		}
+		ZipCodeProjection zipCode = zipCodeDAO.getOne(customerDTO.getZipCodeId());
+		if(zipCode==null)
+		{
+			return "ZipCode ID "+ customerDTO.getZipCodeId() +" not in the Master";
+		}
 
 		CustomerProjection customer = customerDAO.getOne(customerDTO.getCustomerId());
-
-		customer.setCustomer_Name(customerDTO.getCustomerName());
-		customer.setCustomer_Name_Caption(customerDTO.getCustomerNameCaption());
-		customer.setCustomer_Name_Ui(customerDTO.getCustomerNameUi());
-		customer.setEmail_Id(customerDTO.getEmailId());
-		customer.setEmail_Id_Verified(customerDTO.getEmailIdVerified());
-		customer.setGst_In(customerDTO.getGstIn());
-		customer.setMobile_No(customerDTO.getMobileNo());
-		customer.setMobile_No_Verified(customerDTO.getMobileNoVerified());
-		customer.setAddress(customerDTO.getAddress());
-		customer.setType(customerDTO.getType());
+		customerDTO.setCustomerId(customer.getCustomer_Id());
+		customerDTO.setCustomerName(customer.getCustomer_Name());
+		customerDTO.setCustomerNameCaption(customer.getCustomer_Name_Caption());
+		customerDTO.setCustomerNameUi(customer.getCustomer_Name_Ui());
+		customerDTO.setEmailId(customer.getEmail_Id());
+		customerDTO.setEmailIdVerified(customer.getEmail_Id_Verified());
+		customerDTO.setMobileNo(customer.getMobile_No());
+		customerDTO.setMobileNoVerified(customer.getMobile_No_Verified());
+		customerDTO.setType(customer.getType());
+		customerDTO.setAddress(customer.getAddress());
+		customerDTO.setGstIn(customer.getGst_In());
+		customerDTO.setCountryId(customer.getCountry_Id());
+		customerDTO.setOrganisationId(customer.getOrganisation_Id());
+		customerDTO.setStateId(customer.getState_Id());
+		customerDTO.setZipCodeId(customer.getZip_Code_Id());
 
 		customerDAO.save(customer);
 

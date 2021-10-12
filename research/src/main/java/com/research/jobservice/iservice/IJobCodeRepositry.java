@@ -1,6 +1,7 @@
 package com.research.jobservice.iservice;
 
 import com.research.jobservice.dto.JobCodeDTO;
+import com.research.jobservice.dto.JobCode_JobDTO;
 
 public interface IJobCodeRepositry {
 
@@ -13,6 +14,8 @@ public interface IJobCodeRepositry {
 	String UpdateJobDetails(JobCodeDTO jobcodeto);
 
 	String deletejobCodeById(String jobcodeId);
+
+	String saveDetailsWithJob(JobCode_JobDTO jobcodeto);
 	
 
 }

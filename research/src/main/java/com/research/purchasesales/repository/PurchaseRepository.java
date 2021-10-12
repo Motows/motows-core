@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.research.purchasesales.dto.PurchaseDTO;
 import com.research.purchasesales.dto.PurchaseLineDTO;
+import com.research.purchasesales.dto.PurchaseWithLineDTO;
 import com.research.purchasesales.entity.PurchaseLineProjection;
 import com.research.purchasesales.entity.PurchaseProjection;
 import com.research.garage.dao.GarageDAO;
@@ -86,24 +87,71 @@ public class PurchaseRepository implements IPurchaseRepository {
 		PurchasePro.setGarageID(purchaseDTO.getGarageID());
 
 		PurchaseDAO.save(PurchasePro);
-//		List<PurchaseLineProjection> purchaselineLineList = new ArrayList<PurchaseLineProjection>();
-//		for (int i = 0; i < purchaseDTO.getPurchaseline().size(); i++) {
-//
-//			PurchaseLineDTO prchaselinedto = purchaseDTO.getPurchaseline().get(i);
-//
-//			PurchaseLineProjection purchaseLine = new PurchaseLineProjection();
-//			purchaseLine.setHSN(prchaselinedto.getHSN());
-//			purchaseLine.setItemcode(prchaselinedto.getItemcode());
-//			purchaseLine.setPrice(prchaselinedto.getPrice());
-//			purchaseLine.setPurchaselineno(prchaselinedto.getPurchaselineno());
-//			purchaseLine.setQty(prchaselinedto.getQty());
-//			purchaseLine.setTax(prchaselinedto.getTax());
-//			purchaseLine.setUom(prchaselinedto.getUom());
-//			purchaseLine.setPurchase(PurchasePro);
-//			purchaselineLineList.add(purchaseLine);
-//
-//		}
-//		PurchaseLineDAO.saveAll(purchaselineLineList);
+		return "PurchaseRequest Saved";
+	}
+	
+	@Override
+	public String AddPurchaseWithLineRequest(PurchaseWithLineDTO purchaseDTO) {
+		GarageProjection garagepro = garageDAO.getOne(purchaseDTO.getGarageID());
+		Date now = new Date();
+		if(garagepro==null)
+		{
+			return "Garage ID "+ purchaseDTO.getGarageID() +" not in the Master";
+		}
+		
+		VendorProjection vendor = vendorDAO.getOne(purchaseDTO.getVendorID());
+		
+		if(vendor==null)
+		{
+			return "Vendor ID "+ purchaseDTO.getVendorID() +" not in the Master";
+		}
+		
+		OrganisationProjection org = organisationDAO.getOne(purchaseDTO.getOrganisationID());
+		
+		if(org==null)
+		{
+			return "Organisation ID "+ purchaseDTO.getOrganisationID() +" not in the Master";
+		}
+		
+		JobCardProjection jobCard = jobCodeDAO.getOne(purchaseDTO.getJobno());
+		
+		if(jobCard==null)
+		{
+			return "Job Code ID "+ purchaseDTO.getJobno() +" not in the Master";
+		}
+		
+		PurchaseProjection PurchasePro = new PurchaseProjection();
+
+		PurchasePro.setEntry_Type(purchaseDTO.getEntryType());
+		PurchasePro.setOrganisationID(purchaseDTO.getOrganisationID());
+		PurchasePro.setVendorID(purchaseDTO.getVendorID());
+		PurchasePro.setEntry_Date(now);
+		PurchasePro.setSupplierrefno(purchaseDTO.getSupplierrefno());
+		PurchasePro.setSupplierref_Posting_Date(now);
+		PurchasePro.setJobno(purchaseDTO.getJobno());
+		PurchasePro.setGarageID(purchaseDTO.getGarageID());
+
+		List<PurchaseLineProjection> purchaselineLineList = new ArrayList<PurchaseLineProjection>();
+		for (int i = 0; i < purchaseDTO.getPurchaseline().size(); i++) {
+
+			PurchaseLineDTO prchaselinedto = purchaseDTO.getPurchaseline().get(i);
+			PurchaseLineProjection purchaseLine = new PurchaseLineProjection();
+			purchaseLine.setHSN(prchaselinedto.getHSN());
+			purchaseLine.setItemcode(prchaselinedto.getItemcode());
+			purchaseLine.setPrice(prchaselinedto.getPrice());
+			purchaseLine.setPurchaselineno(prchaselinedto.getPurchaselineno());
+			purchaseLine.setQty(prchaselinedto.getQty());
+			purchaseLine.setTax(prchaselinedto.getTax());
+			purchaseLine.setUom(prchaselinedto.getUom());
+			purchaselineLineList.add(purchaseLine);
+
+		}
+		String purchaseId=PurchaseDAO.save(PurchasePro).getPurcahseID();
+		for(PurchaseLineProjection purchaseLine:purchaselineLineList)
+		{
+			purchaseLine.setPurcahseID(purchaseId);
+			PurchaseLineDAO.save(purchaseLine);
+		}
 		return "PurchaseRequest Saved";
 	}
 
