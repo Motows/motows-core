@@ -44,9 +44,12 @@ public class EmployeeProjection {
 	@Column(length = 50)
 	private String employee_Name;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="organisation_Id")
-	private OrganisationProjection organisation;
+//	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="organisation_Id")
+//	private OrganisationProjection organisation;
+//	
+	@Column(length = 10)
+	private String organisation_Id;
 	
 	@Column(length = 10)
 	private String mobile_No;

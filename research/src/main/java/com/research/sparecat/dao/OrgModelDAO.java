@@ -11,7 +11,10 @@ import com.research.vehicle.entity.ModelProjection;
 @Repository
 public interface OrgModelDAO extends JpaRepository<OrgModelPojection, String>  {
 
-	@Query(value = "Select * FROM model  where organisation_id=?1 and model_id=?2 ", nativeQuery = true)
+	@Query(value = "Select * FROM org_model  where organisationid=?1 and modelid=?2 ", nativeQuery = true)
 	List<OrgModelPojection> getList(String orgID,String modelID);
+	
+	@Query(value = "Select * FROM org_model  where modelid=?1 ", nativeQuery = true)
+	OrgModelPojection getOne(String modelID);
 
 }

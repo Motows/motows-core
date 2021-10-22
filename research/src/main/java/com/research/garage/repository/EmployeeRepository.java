@@ -56,7 +56,7 @@ public class EmployeeRepository implements IEmployeeRepository {
 		employee.setMobile_No(employeeDTO.getMobileNo());
 		employee.setRole(employeeDTO.getRole());
 		employee.setStatus(employeeDTO.getStatus());
-		employee.setOrganisation(org);
+		employee.setOrganisation_Id(employeeDTO.getOrganisationId());
 		
 		employeeDAO.save(employee);
 		
@@ -76,7 +76,7 @@ public class EmployeeRepository implements IEmployeeRepository {
 		employeeDTO.setEmailId(employee.getEmail_Id());
 		employeeDTO.setRole(employee.getRole());
 		employeeDTO.setStatus(employee.getStatus());
-		employeeDTO.setOrganisationId(employee.getOrganisation().getOrgID());
+		employeeDTO.setOrganisationId(employee.getOrganisation_Id());
 		
 		
 		return employeeDTO;
@@ -92,7 +92,22 @@ public class EmployeeRepository implements IEmployeeRepository {
 	public String UpdateEmployee(EmployeeDTO employeeDTO) {
 		EmployeeProjection employee = employeeDAO.getOne(employeeDTO.getEmployeeId());
 		
+		OrganisationProjection org = organisationDAO.getOne(employeeDTO.getOrganisationId());
 		
+		if(org==null)
+		{
+			return "Organisation ID "+ employeeDTO.getOrganisationId() +" not in the Master";
+		}
+		
+	    if(employeeDTO.getEmployeeName()==null || employeeDTO.getEmployeeName().isEmpty() )
+	    {
+	    	return "Employee Name Required";
+	    }
+		
+	    if(employeeDTO.getMobileNo()==null || employeeDTO.getMobileNo().isEmpty() )
+	    {
+	    	return "Employee Mobile Number Required";
+	    }
 		employee.setEmployee_Name(employeeDTO.getEmployeeName());
 		employee.setMobile_No(employeeDTO.getMobileNo());
 		employee.setEmail_Id(employeeDTO.getEmailId());

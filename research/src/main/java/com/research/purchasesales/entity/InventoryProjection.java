@@ -52,6 +52,8 @@ public class InventoryProjection  {
 	private String Entryno;
 	 @Column(length = 100)
 	    private String org_Id;
+	 @Column(length = 100)
+	    private String garageId;
 	
 //	 @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 //		@JoinColumn(name="orgId")

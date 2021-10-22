@@ -62,12 +62,16 @@ public class OrgPartMakeRepository implements IOrgPartMakeRepository {
 	@Override
 	public String updateOrgPartMake(OrgPartMakeDTO orgPartMakeDTO) {
 		OrgPartMakeProjection orgPartMake = orgPartMakeDAO.getOne(orgPartMakeDTO.getPartMakeId());
-		
+		OrganisationProjection org = organisationDAO.getOne(orgPartMakeDTO.getOrganisationID());
+		if(org==null)
+		{
+			return "Org ID "+ orgPartMakeDTO.getOrganisationID() +" not in the Master";
+		}
 		orgPartMake.setPart_Make_Name(orgPartMakeDTO.getPartMakeName());
 		orgPartMake.setParts_Make_Caption(orgPartMakeDTO.getPartsMakeCaption());
 		orgPartMake.setParts_Make_Ui(orgPartMakeDTO.getPartsMakeUi());
 		orgPartMake.setOrganisationID(orgPartMakeDTO.getOrganisationID());
-
+		orgPartMakeDAO.save(orgPartMake);
 		return "Prg Part Make Updated";
 	}
 

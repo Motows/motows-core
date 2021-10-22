@@ -31,6 +31,6 @@ public class SaleDTO {
 	
 	private String JobNo;
 	
-	private List<SalesLineDTO> salesLIne;
+//	private List<SalesLineDTO> salesLIne;
 	
 }

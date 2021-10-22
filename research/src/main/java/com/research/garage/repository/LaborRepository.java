@@ -34,7 +34,7 @@ public class LaborRepository implements ILaborRepository {
 		labor.setLabor_Description_Caption(labordto.getLaborDescriptionCaption());
 		labor.setLabor_DescriptionUI(labordto.getLaborDescriptionUI());
 		labor.setHSN(labordto.getHSN());
-		labor.setOrganisation(org);
+		labor.setOrganisationID(labordto.getOrganisationID());
 		laborDAO.save(labor);
 		return "Details Saved";
 	}
@@ -52,6 +52,7 @@ public class LaborRepository implements ILaborRepository {
 		response.setLaborDescriptionUI(labor.getLabor_DescriptionUI());
 		response.setHSN(labor.getHSN());
 		response.setLaborID(labor.getLaborID());
+		response.setOrganisationID(labor.getOrganisationID());
 
 		return response;
 	}
@@ -69,11 +70,17 @@ public class LaborRepository implements ILaborRepository {
 	@Override
 	public String UpdateLaborDetails(LaborDTO labordto) {
 		LaborProjection labor =	laborDAO.getOne(labordto.getLaborID());
+		OrganisationProjection org = OrganisationDAO.getOne(labordto.getOrganisationID());
+		if(org==null)
+		{
+			return "Organisation ID "+ labordto.getOrganisationID() +" not in the Master";
+		}
 		labor.setLabor_Description(labordto.getLaborDescription());
 		labor.setLabor_Description_Caption(labordto.getLaborDescriptionCaption());
 		labor.setLabor_DescriptionUI(labordto.getLaborDescriptionUI());
 		labor.setHSN(labordto.getHSN());
 		labor.setLaborID(labordto.getLaborID());
+		labor.setOrganisationID(labordto.getOrganisationID());
 		laborDAO.save(labor);
 		return "updated";
 	}

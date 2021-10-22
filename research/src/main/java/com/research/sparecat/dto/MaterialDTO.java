@@ -26,5 +26,5 @@ public class MaterialDTO {
 	private String HSN;
 
 	private String SalesPrice;
-	private String OrganizationID;
+	//private String OrganizationID;
 }

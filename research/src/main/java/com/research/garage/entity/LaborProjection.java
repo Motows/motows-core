@@ -49,11 +49,14 @@ public class LaborProjection  {
     private String Labor_Description_Caption;
     @Column(length = 100)
     private String Labor_DescriptionUI;
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-	@JoinColumn(name="OrganisationID")
-    private OrganisationProjection organisation;
+//    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+//	@JoinColumn(name="OrganisationID")
+//    private OrganisationProjection organisation;
     @Column(length = 100)
     private String HSN;
+    
+    @Column(length = 100)
+    private String OrganisationID;
     
     
 }

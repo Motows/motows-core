@@ -96,19 +96,23 @@ public class WrapperRepository implements IWrapperRepository {
 //			throw new EntityNotFoundException(
 //					"Unable to find " + VIN_ContactProjection.class + "with customerId  " + customer.getCustomerId());
 		}
-
-//		for (VIN_ContactProjection vinContacts : vinContactList) {
-//			for (VINProjection vin : vinContacts.getVin()) {
-//				VehicelDetailsDTO VehicelDetailsDTO = new VehicelDetailsDTO();
-//
-//				VehicelDetailsDTO.setManufactureYear(vin.getManufacture_Year());
-//			//	VehicelDetailsDTO.setModelDescription(vin.getModel().getModel_Description());
-//				VehicelDetailsDTOList.add(VehicelDetailsDTO);
-//
-//			}
-//
-//		}
-
+		for (VIN_ContactProjection vinContacts : vinContactList) {
+			
+			List<VINProjection> vinList=VinDAO.getAllByVehicleId(vinContacts.getVehicleID());
+			
+			for (VINProjection vin : vinList) {
+				VehicelDetailsDTO VehicelDetailsDTO = new VehicelDetailsDTO();
+				ColorProjection color=vin.getColor();
+				ModelProjection model=vin.getModel();
+				VehicelDetailsDTO.setColorDesc(color.getColor_Description());
+				VehicelDetailsDTO.setManufactureYear(vin.getManufacture_Year());
+				VehicelDetailsDTO.setVehicleNumber(vin.getVINReg_No());
+				VehicelDetailsDTO.setModelDesc(model.getModel_Description());
+				VehicelDetailsDTOList.add(VehicelDetailsDTO);
+				
+			}
+		}
+		
 		return VehicelDetailsDTOList;
 	}
 	
@@ -251,8 +255,18 @@ public class WrapperRepository implements IWrapperRepository {
 		response.setCountryId(customer.getCountry_Id());
 		response.setCustomerId(customer.getCustomer_Id());
 		response.setCustomerName(customer.getCustomer_Name());
+		response.setCustomerNameCaption(customer.getCustomer_Name_Caption());
+		response.setCustomerNameUi(customer.getCustomer_Name_Ui());;
+		response.setOrganisationId(customer.getOrganisation_Id());
+		response.setType(customer.getType());
 		response.setEmailId(customer.getEmail_Id());
 		response.setMobileNo(customer.getMobile_No());
+		response.setStateId(customer.getState_Id());
+		response.setZipCodeId(customer.getZip_Code_Id());
+		response.setGstIn(customer.getGst_In());
+		response.setEmailIdVerified(customer.getEmail_Id_Verified());
+		response.setMobileNoVerified(customer.getMobile_No_Verified());
+		
 		estimateDTO.setCustomer(response);
 		
 	}
@@ -265,6 +279,11 @@ public class WrapperRepository implements IWrapperRepository {
 		response.setModelID(vehicle.getModel().getModel_Id());
 		response.setVehicleID(vehicle.getVINNo());
 		response.setVINRegNo(vehicle.getVINReg_No());
+		response.setVehicleNotes(vehicle.getVehicle_Notes());
+		response.setContactType(vehicle.getVinContact().getContact_Type());
+		response.setVINNo(vehicle.getVINNo());
+		response.setCustomerId(vehicle.getVinContact().getCustomer_Id());
+		//response.setOrgId(OrgId);
 		estimateDTO.setVehicle(response);
 		
 	}

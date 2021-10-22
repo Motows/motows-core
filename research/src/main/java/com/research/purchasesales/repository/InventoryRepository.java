@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import com.research.garage.dao.GarageDAO;
 
 import com.research.garage.dao.OrganisationDAO;
+import com.research.garage.entity.CustomerProjection;
 import com.research.garage.entity.GarageProjection;
 import com.research.garage.entity.OrganisationProjection;
 import com.research.purchasesales.dao.InventoryDAO;
@@ -27,9 +28,17 @@ public class InventoryRepository implements IInventoryRepository{
 	private InventoryDAO InventoryDAO;
 	@Override
 	public String saveDetails(InventoryDTO inventoryDTO) {
-		GarageProjection garagepro = garageDAO.getOne(inventoryDTO.getGarageID());
-		
 		OrganisationProjection org = OrganisationDAO.getOne(inventoryDTO.getOrgId());
+		if(org==null)
+		{
+			return "Organisation ID "+ inventoryDTO.getOrgId() +" not in the Master";
+		}
+		
+		GarageProjection garage = garageDAO.getOne(inventoryDTO.getGarageID());
+		if(garage==null)
+		{
+			return "Garage ID "+ inventoryDTO.getGarageID() +" not in the Master";
+		}
 		
 		Date now = new Date();
 		
@@ -42,6 +51,7 @@ public class InventoryRepository implements IInventoryRepository{
 		invpro.setSalesprice(inventoryDTO.getSalesprice());
 		invpro.setReferencetransaction(inventoryDTO.getReferencetransaction());
 		invpro.setOrg_Id(inventoryDTO.getOrgId());
+		invpro.setGarageId(inventoryDTO.getGarageID());
 		invpro.setEntry_Date(now);
 		//invpro.setOrganisation(null);
 		//invpro.setOrganisation(organisation);
@@ -67,7 +77,7 @@ public class InventoryRepository implements IInventoryRepository{
 		invdto.setPurprices(inv.getPurprices());
 		invdto.setSalesprice(inv.getSalesprice());
 		invdto.setReferencetransaction(inv.getReferencetransaction());
-		//invdto.setGarageID(inv.getGarage().getGarageId());
+		invdto.setGarageID(inv.getGarageId());
 		return invdto;
 	}
 
@@ -81,18 +91,33 @@ public class InventoryRepository implements IInventoryRepository{
 	@Override
 	public String updateInventory(InventoryDTO inventoryDTO) {
 
-		InventoryProjection inv =	InventoryDAO.getOne(inventoryDTO.getEntryno());
+		InventoryProjection invpro =	InventoryDAO.getOne(inventoryDTO.getEntryno());
 		
 		
-		inv.setItem_Code(inventoryDTO.getItemCode());
-		inv.setStockin(inventoryDTO.getStockin());
-		inv.setStockout(inventoryDTO.getStockout());
-		inv.setPurprices(inventoryDTO.getPurprices());
-		inv.setSalesprice(inventoryDTO.getSalesprice());
-		inv.setOrg_Id(inventoryDTO.getOrgId());
-		inv.setReferencetransaction(inventoryDTO.getReferencetransaction());
+		OrganisationProjection org = OrganisationDAO.getOne(inventoryDTO.getOrgId());
+		if(org==null)
+		{
+			return "Organisation ID "+ inventoryDTO.getOrgId() +" not in the Master";
+		}
+		
+		GarageProjection garage = garageDAO.getOne(inventoryDTO.getGarageID());
+		if(garage==null)
+		{
+			return "Garage ID "+ inventoryDTO.getGarageID() +" not in the Master";
+		}
+		
+		Date now = new Date();
+		
+		invpro.setItem_Code(inventoryDTO.getItemCode());
+		invpro.setStockin(inventoryDTO.getStockin());
+		invpro.setStockout(inventoryDTO.getStockout());
+		invpro.setPurprices(inventoryDTO.getPurprices());
+		invpro.setSalesprice(inventoryDTO.getSalesprice());
+		invpro.setReferencetransaction(inventoryDTO.getReferencetransaction());
+		invpro.setOrg_Id(inventoryDTO.getOrgId());
+		invpro.setGarageId(inventoryDTO.getGarageID());
 
-		InventoryDAO.save(inv);
+		InventoryDAO.save(invpro);
 
 		return "updated";
 	}

@@ -9,9 +9,12 @@ import com.research.jobservice.dto.JobTemplateDTO;
 import com.research.jobservice.entity.JobTemplateProjection;
 import com.research.sparecat.dao.MaterialDAO;
 import com.research.sparecat.dao.OrgModelDAO;
+import com.research.sparecat.dao.PartMakeDAO;
 import com.research.sparecat.dto.MaterialDTO;
 import com.research.sparecat.entity.MaterialProjection;
 import com.research.sparecat.entity.OrgModelPojection;
+import com.research.sparecat.entity.OrgPartMakeProjection;
+import com.research.sparecat.entity.PartMakeProjection;
 import com.research.sparecat.iservice.IMaterialRepository;
 import com.research.vehicle.dao.ModelDAO;
 import com.research.vehicle.entity.ModelProjection;
@@ -22,6 +25,8 @@ public class MaterialRepository  implements IMaterialRepository {
 	private MaterialDAO materialDAO;
 	@Autowired
 	private OrgModelDAO orgModelDAO;
+	@Autowired
+	private PartMakeDAO partMakeDAO;
 	@Override
 	public MaterialDTO getMaterialById(String partId) {
 		MaterialProjection matrelpro = materialDAO.getOne(partId);
@@ -44,6 +49,12 @@ public class MaterialRepository  implements IMaterialRepository {
 	@Override
 	public String addMaterial(MaterialDTO materialDTO) {
 		MaterialProjection matrelpro = new MaterialProjection();
+		
+		PartMakeProjection partMake = partMakeDAO.getOne(materialDTO.getPartMake());
+		if(partMake==null)
+		{
+			return "Part Make ID "+ materialDTO.getPartMake() +" not in the Master";
+		}
 		String category=materialDTO.getCategory();
 		if(category==null || category=="")
 		{
@@ -63,6 +74,17 @@ public class MaterialRepository  implements IMaterialRepository {
 	@Override
 	public String updateMaterialById(MaterialDTO materialDTO) {
 		MaterialProjection matrelpro = materialDAO.getOne(materialDTO.getPartID());
+		PartMakeProjection partMake = partMakeDAO.getOne(matrelpro.getPart_Make());
+		if(partMake==null)
+		{
+			return "Part Make ID "+ matrelpro.getPart_Make() +" not in the Master";
+		}
+		String category=matrelpro.getCategory();
+		if(category==null || category=="")
+		{
+			return "Category Required"; 
+		}
+		
 		matrelpro.setCategory(materialDTO.getCategory());
 		matrelpro.setHSN(materialDTO.getHSN());
 		matrelpro.setPart_Description(materialDTO.getPartDescription());
@@ -87,7 +109,7 @@ public class MaterialRepository  implements IMaterialRepository {
 		List<MaterialProjection> partList = new ArrayList<MaterialProjection>();
 		 for(OrgModelPojection parts:modelList)
 	        {
-			partList.add(materialDAO.getParts(category,parts.getPart_ID()));
+			partList.add(materialDAO.getParts(category,parts.getPartID()));
 	        }
 		
 		List<MaterialDTO> MaterialDTOList = new ArrayList<MaterialDTO>();
@@ -103,7 +125,7 @@ public class MaterialRepository  implements IMaterialRepository {
         	mDto.setPartsCaption(parts.getPart_Description());
         	mDto.setPartsUI(parts.getPartsUI());
         	mDto.setSalesPrice(parts.getSales_Price());
-        	mDto.setOrganizationID(orgId);
+      //  	mDto.setOrganizationID(orgId);
         	MaterialDTOList.add(mDto);
        
         }

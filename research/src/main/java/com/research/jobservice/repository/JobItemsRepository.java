@@ -57,6 +57,7 @@ public class JobItemsRepository implements IJobItemsRepository {
 		jobItemsDTO.setHsnAndSac(jobItem.getHsn_Or_Sac());
 		jobItemsDTO.setItemcode(jobItem.getItemcode());
 		jobItemsDTO.setItem_status(jobItem.getItem_status());
+		jobItemsDTO.setJob_cardid(jobItem.getJob_cardid());
 
 		return jobItemsDTO;
 	}

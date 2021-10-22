@@ -20,4 +20,7 @@ public interface VINDAO extends JpaRepository<VINProjection, String>  {
 	
 	@Query(value = "Select * FROM vin  where vinreg_no=? ", nativeQuery = true)
 	VINProjection getVehicle  (String vinRegNo);
+	
+	@Query(value = "Select * FROM vin  where vinreg_no=? ", nativeQuery = true)
+	VINProjection getOne  (String vinRegNo);
 }

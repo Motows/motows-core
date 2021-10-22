@@ -19,8 +19,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "OrgModel")
-@Table(name = "OrgModel")
+@Entity(name = "Org_Model")
+@Table(name = "Org_Model")
 @EntityListeners(AuditingEntityListener.class)
 @Data
 @Builder
@@ -37,13 +37,13 @@ public class OrgModelPojection {
 	})
 	@Id
 	@Column(unique = true, length = 50)
-	private String Model_ID;
+	private String ModelID;
 
 	@Column(length = 250)
-	private String Organisation_ID;
+	private String OrganisationID;
 
 	@Column(length = 250)
-	private String Part_ID;
+	private String PartID;
 
 	@Column(length = 250)
 	private String Model_Description;
@@ -52,6 +52,6 @@ public class OrgModelPojection {
 	private String Model_Caption;
 
 	@Column(length = 250)
-	private String Model_UI;
+	private String ModelUI;
 
 }

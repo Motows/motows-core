@@ -28,5 +28,5 @@ public class VINDTO {
 	
 	private String ContactType;
 	
-	private String OrgId;
+//	private String OrgId;
 }

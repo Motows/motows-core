@@ -44,11 +44,11 @@ public class SCMaterialController {
 		return this.materialService.updateMaterialById(materialDTO);
 	}
 	
-	@GetMapping("/getPartsdetailsWithCategory/{orgID}/{model}/{category}")
-	public List<MaterialDTO> getPartsdetailsWithCategory(@PathVariable("orgID") String orgID,@PathVariable("model") String model,
-			@PathVariable(name="category", required=false)String category) {
-		
-		return this.materialService.getPartsdetailsWithCategory(orgID,model,
-				category);
-	}
+//	@GetMapping("/getPartsdetailsWithCategory/{orgID}/{model}/{category}")
+//	public List<MaterialDTO> getPartsdetailsWithCategory(@PathVariable("orgID") String orgID,@PathVariable("model") String model,
+//			@PathVariable(name="category", required=false)String category) {
+//		
+//		return this.materialService.getPartsdetailsWithCategory(orgID,model,
+//				category);
+//	}
 }

@@ -171,21 +171,20 @@ public class CustomerRepository implements ICustomerRepository {
 		}
 
 		CustomerProjection customer = customerDAO.getOne(customerDTO.getCustomerId());
-		customerDTO.setCustomerId(customer.getCustomer_Id());
-		customerDTO.setCustomerName(customer.getCustomer_Name());
-		customerDTO.setCustomerNameCaption(customer.getCustomer_Name_Caption());
-		customerDTO.setCustomerNameUi(customer.getCustomer_Name_Ui());
-		customerDTO.setEmailId(customer.getEmail_Id());
-		customerDTO.setEmailIdVerified(customer.getEmail_Id_Verified());
-		customerDTO.setMobileNo(customer.getMobile_No());
-		customerDTO.setMobileNoVerified(customer.getMobile_No_Verified());
-		customerDTO.setType(customer.getType());
-		customerDTO.setAddress(customer.getAddress());
-		customerDTO.setGstIn(customer.getGst_In());
-		customerDTO.setCountryId(customer.getCountry_Id());
-		customerDTO.setOrganisationId(customer.getOrganisation_Id());
-		customerDTO.setStateId(customer.getState_Id());
-		customerDTO.setZipCodeId(customer.getZip_Code_Id());
+		customer.setCustomer_Name(customerDTO.getCustomerName());
+		customer.setCustomer_Name_Caption(customerDTO.getCustomerNameCaption());
+		customer.setCustomer_Name_Ui(customerDTO.getCustomerNameUi());
+		customer.setEmail_Id(customerDTO.getEmailId());
+		customer.setEmail_Id_Verified(customerDTO.getEmailIdVerified());
+		customer.setGst_In(customerDTO.getGstIn());
+		customer.setMobile_No(customerDTO.getMobileNo());
+		customer.setMobile_No_Verified(customerDTO.getMobileNoVerified());
+		customer.setAddress(customerDTO.getAddress());
+		customer.setType(customerDTO.getType());
+		customer.setOrganisation_Id(customerDTO.getOrganisationId());;
+		customer.setCountry_Id(customerDTO.getCountryId());;
+		customer.setState_Id(customerDTO.getStateId());;
+		customer.setZip_Code_Id(customerDTO.getZipCodeId());;
 
 		customerDAO.save(customer);
 

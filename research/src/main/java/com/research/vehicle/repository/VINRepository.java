@@ -38,10 +38,10 @@ public class VINRepository implements IVINRepository {
 	@Override
 	public String AddVinDetails(VINDTO vindto) {
 
-		List<CustomerProjection> customerList=customerDAO.getCustomerListCustID_OrgID(vindto.getCustomerId(),vindto.getOrgId());
-		if(customerList.size()<1)
+		CustomerProjection customer=customerDAO.getOne(vindto.getCustomerId());
+		if(customer==null)
 		{
-			return "Customer Detail Not Available";
+			return "Customer ID Not Matching or Detail Not Available";
 		}
 		
 		ModelProjection model = modelDAO.getOne(vindto.getModelID());
@@ -89,6 +89,8 @@ public class VINRepository implements IVINRepository {
 		vindto.setColorID(vinpro.getColor().getColor_Id());
 		vindto.setVehicleNotes(vinpro.getVehicle_Notes());
 		vindto.setVehicleID(vinpro.getVINReg_No());
+		vindto.setContactType(vinpro.getVinContact().getContact_Type());
+		vindto.setCustomerId(vinpro.getVinContact().getCustomer_Id());
 		return vindto;
 	}
 
@@ -102,9 +104,17 @@ public class VINRepository implements IVINRepository {
 
 	@Override
 	public String updateVinDetails(VINDTO vindto) {
-
+		
 		ModelProjection model = modelDAO.getOne(vindto.getModelID());
+		if(model==null)
+		{
+			return "Model ID "+ vindto.getModelID() +" not Matching";
+		}
 		ColorProjection color = colorDAO.getOne(vindto.getColorID());
+		if(color==null)
+		{
+			return "Color ID "+ vindto.getColorID() +" not Matching";
+		}
 
 		VINProjection vinpro = VINDAO.getOne(vindto.getVehicleID());
 		vinpro.setVINReg_No(vindto.getVINRegNo());

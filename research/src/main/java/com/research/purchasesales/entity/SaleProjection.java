@@ -64,19 +64,19 @@ public class SaleProjection {
 	private Date entry_Date;
 
 	@Column(length = 50)
-	private String JobNo;
+	private String Job_No;
 
-	@OneToMany(targetEntity = SalesLineProjection.class, cascade = { CascadeType.DETACH, CascadeType.MERGE,
-			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, mappedBy = "sale")
-	@ToString.Exclude
-	private List<SalesLineProjection> salesLine;
-
-	public void add(SalesLineProjection theSalesLines) {
-		if (salesLine == null) {
-			salesLine = new ArrayList<SalesLineProjection>();
-		}
-		salesLine.add(theSalesLines);
-		theSalesLines.setSale(this);
-
-	}
+//	@OneToMany(targetEntity = SalesLineProjection.class, cascade = { CascadeType.DETACH, CascadeType.MERGE,
+//			CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE }, mappedBy = "sale")
+//	@ToString.Exclude
+//	private List<SalesLineProjection> salesLine;
+//
+//	public void add(SalesLineProjection theSalesLines) {
+//		if (salesLine == null) {
+//			salesLine = new ArrayList<SalesLineProjection>();
+//		}
+//		salesLine.add(theSalesLines);
+//		theSalesLines.setSale(this);
+//
+//	}
 }

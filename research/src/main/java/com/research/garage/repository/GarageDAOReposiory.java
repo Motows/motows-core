@@ -78,6 +78,8 @@ public class GarageDAOReposiory implements IGarageRepository {
 		crDto.setState(grp.getState());
 		crDto.setGarageCaption(grp.getGarage_Caption());
 		crDto.setGarageName(grp.getGarage_Name());
+		crDto.setOrgId(grp.getOrg_Id());
+		crDto.setCountryID(grp.getCountryID());
 		return crDto;
 		
 	}
@@ -95,7 +97,18 @@ public class GarageDAOReposiory implements IGarageRepository {
 	
 	@Override
 	public String UpdateGarage(GarageDTO garage) {
+		OrganisationProjection org = OrganisationDAO.getOne(garage.getOrgId());
+		// TODO Auto-generated method stub
+		if(org==null)
+		{
+			return "Organisation ID "+ garage.getOrgId() +" not in the Master";
+		}
 		
+		CountryProjection country = countryDAO.getOne(garage.getCountryID());
+		if(country==null)
+		{
+			return "Country ID "+ garage.getCountryID() +" not in the Master";
+		}
 		GarageProjection grg = garageDAO.getOne(garage.getGarageId());
 
 
@@ -106,6 +119,8 @@ public class GarageDAOReposiory implements IGarageRepository {
 		grg.setState(garage.getState());
 		grg.setGarage_Caption(garage.getGarageCaption());
 		grg.setGarage_Name(garage.getGarageName());
+		grg.setOrg_Id(garage.getOrgId());
+		grg.setCountryID(garage.getCountryID());
 
 		garageDAO.save(grg);
 

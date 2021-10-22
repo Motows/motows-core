@@ -9,4 +9,7 @@ import com.research.vehicle.entity.ModelProjection;;
 public interface MaterialDAO  extends JpaRepository<MaterialProjection, String> {
 	@Query(value = "Select * FROM material  where category=?1 and partid=?2 ", nativeQuery = true)
 	MaterialProjection getParts(String model_id,String part_id);
+	
+	@Query(value = "Select * FROM material  where partid=?1 ", nativeQuery = true)
+	MaterialProjection getOne(String part_id);
 }
