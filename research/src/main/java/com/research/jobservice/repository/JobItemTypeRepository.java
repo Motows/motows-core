@@ -28,6 +28,11 @@ public class JobItemTypeRepository implements IJobItemTypeRepository {
 	public JobitemTypeDTO getjobItemTypedetails(String jobItemTypeId) {
 		JobitemTypeProjection jobitemtyp = jobItemTypeDAO.getOne(jobItemTypeId);
 		JobitemTypeDTO jobitemtypedto = new JobitemTypeDTO();
+		if(jobitemtyp==null)
+		{
+			jobitemtypedto.setJobitemtypeID("Invalid ID:"+jobItemTypeId);
+			return jobitemtypedto;
+		}
 		jobitemtypedto.setJobItemCaption(jobitemtyp.getJob_Item_Caption());
 		jobitemtypedto.setJobItemName(jobitemtyp.getJob_Item_Name());
 		jobitemtypedto.setJobItemUI(jobitemtyp.getJob_ItemUI());
@@ -38,8 +43,16 @@ public class JobItemTypeRepository implements IJobItemTypeRepository {
 	
 	@Override
 	public String deletejobItemTypeById(String jobItemTypeId) {
-		jobItemTypeDAO.deleteById(jobItemTypeId);
-		return "Job Item Type Deleted";
+		if(jobItemTypeDAO.getOne(jobItemTypeId)!=null)
+		{
+			jobItemTypeDAO.deleteById(jobItemTypeId);
+			return "Job Item Type Deleted";
+		}
+		else
+		{
+			return "Job Item Type id Not found";
+		}
+		
 	}
 
 

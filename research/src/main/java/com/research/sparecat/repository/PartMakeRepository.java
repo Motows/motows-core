@@ -31,7 +31,11 @@ public class PartMakeRepository implements IPartMakeRepository {
 	public PartMakeDTO getPartMakeById(String partMakeId) {
 		PartMakeProjection partMake = partMakeDAO.getOne(partMakeId);
 		PartMakeDTO partMakeDTO = new PartMakeDTO();
-
+		if(partMake==null)
+		{
+			partMakeDTO.setPartMakeId("Invalid ID:"+partMakeId);
+			return partMakeDTO;
+		}
 		partMakeDTO.setPartMakeId(partMake.getPart_Make_Id());
 		partMakeDTO.setPartMakeName(partMake.getPart_Make_Name());
 		partMakeDTO.setPartsMakeCaption(partMake.getParts_Make_Caption());
@@ -41,8 +45,16 @@ public class PartMakeRepository implements IPartMakeRepository {
 
 	@Override
 	public String deletePartMake(String partMakeId) {
-		partMakeDAO.deleteById(partMakeId);
-		return "Part Make Deleted";
+		if(partMakeDAO.getOne(partMakeId)!=null)
+		{
+			partMakeDAO.deleteById(partMakeId);
+			return "Part Make Deleted";
+		}
+		else
+		{
+			return "Part Make id Not found";
+		}
+
 	}
 
 	@Override

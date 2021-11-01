@@ -59,7 +59,7 @@ public class OrganisationRepository implements IOrganisationRepository {
 		response.setPANNo(org.getPANNo());
 		response.setTanentID(org.getTanentID());
 		response.setOrgID(org.getOrgID());
-		//response.setCountryId(org.getCountry());
+		response.setCountryId(org.getCountryID());
 	
 		return response;
 	}
@@ -67,14 +67,28 @@ public class OrganisationRepository implements IOrganisationRepository {
 	@Override
 	public String deleteOrganisationById(String organisationId) {
 		
-		
-	OrganisationDAO.deleteById(organisationId);
-		
-		return "deleted";
+		if(OrganisationDAO.getOne(organisationId)!=null)
+		{
+			
+			OrganisationDAO.deleteById(organisationId);
+			
+			return "Organisation deleted";
+		}
+		else
+		{
+			return "Organisation id Not found";
+		}
+	
 	}
 
 	@Override
 	public String UpdateOrganisation(OrganisationDTO organisationDTO) {
+CountryProjection country = countryDAO.getOne(organisationDTO.getCountryId());
+		
+		if(country==null)
+		{
+			return "Country ID "+ organisationDTO.getCountryId() +" not in the Master";
+		}
 		
 		OrganisationProjection org =	OrganisationDAO.getOne(organisationDTO.getOrgID());
 		
@@ -83,7 +97,7 @@ public class OrganisationRepository implements IOrganisationRepository {
 		org.setOrganisation_Caption(organisationDTO.getOrganisationCaption());
 		org.setPANNo(organisationDTO.getPANNo());
 		org.setTanentID(organisationDTO.getTanentID());
-		
+		org.setCountryID(organisationDTO.getCountryId());
 		OrganisationDAO.save(org);
 		
 		return "updated";

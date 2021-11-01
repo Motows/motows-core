@@ -107,7 +107,11 @@ public class SaleRepository implements ISaleRepository {
 		SaleProjection sale = saleDAO.getOne(saleId);
 
 		SaleDTO saleDTO = new SaleDTO();
-
+		if(sale==null)
+		{
+			saleDTO.setSalesId("Invalid ID:"+saleId);
+			return saleDTO;
+		}
 		List<SalesLineDTO> salesLineList = new ArrayList<SalesLineDTO>();
 
 		saleDTO.setCustomerId(sale.getCustomer_Id());
@@ -140,8 +144,16 @@ public class SaleRepository implements ISaleRepository {
 
 	@Override
 	public String deleteSaleById(String saleId) {
-		saleDAO.deleteById(saleId);
-		return "Sale Deleted";
+		if(saleDAO.getOne(saleId)!=null)
+		{
+			saleDAO.deleteById(saleId);
+			return "Sale Deleted";
+		}
+		else
+		{
+			return "Sale id Not found";
+		}
+
 	}
 
 	@Override

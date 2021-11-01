@@ -71,6 +71,11 @@ public class JobTemplateRepository implements IJobTemplateRepository {
 	public JobTemplateDTO getjtbyId(String jobtempId) {
 		JobTemplateProjection jtdto = jobTemplateDAO.getOne(jobtempId);
 		JobTemplateDTO jtpro = new JobTemplateDTO();
+		if(jtdto==null)
+		{
+			jtpro.setJobTemplateId("Invalid ID:"+jobtempId);
+			return jtpro;
+		}
 		jtpro.setGarageId(jtdto.getGarage_Id());
 		jtpro.setJobTemplateCaption(jtdto.getJob_Template_Caption());
 		jtpro.setJobTemplateDiscription(jtdto.getJob_Template_Discription());
@@ -86,10 +91,17 @@ public class JobTemplateRepository implements IJobTemplateRepository {
 
 	@Override
 	public String deleteJtById(String deleteJtById) {
+		if(jobTemplateDAO.getOne(deleteJtById)!=null)
+		{
+			jobTemplateDAO.deleteById(deleteJtById);
 
-		jobTemplateDAO.deleteById(deleteJtById);
-
-		return "deleted";
+			return "Job Template deleted";
+		}
+		else
+		{
+			return "Job Template  id Not found";
+		}
+		
 	}
 	
 	@Override

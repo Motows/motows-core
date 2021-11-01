@@ -162,7 +162,11 @@ public class PurchaseRepository implements IPurchaseRepository {
 		PurchaseDTO response = new PurchaseDTO();
 
 		List<PurchaseLineDTO> purchaseLineList = new ArrayList<PurchaseLineDTO>();
-
+		if(PurchasePro==null)
+		{
+			response.setPurcahseID("Invalid ID:"+purchaseid);
+			return response;
+		}
 		response.setPurcahseID(PurchasePro.getPurcahseID());
 		response.setEntryType(PurchasePro.getEntry_Type());
 		response.setOrganisationID(PurchasePro.getOrganisationID());
@@ -196,9 +200,17 @@ public class PurchaseRepository implements IPurchaseRepository {
 
 	@Override
 	public String deleteById(String purchaseid) {
-		PurchaseDAO.deleteById(purchaseid);
+		if(PurchaseDAO.getOne(purchaseid)!=null)
+		{
+			PurchaseDAO.deleteById(purchaseid);
 
-		return "deleted";
+			return "Purchase deleted";
+		}
+		else
+		{
+			return "Purchase id Not found";
+		}
+
 	}
 
 	@Override

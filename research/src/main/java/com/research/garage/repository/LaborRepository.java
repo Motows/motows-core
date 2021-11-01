@@ -60,9 +60,16 @@ public class LaborRepository implements ILaborRepository {
 
 	@Override
 	public String deleteLaborById(String laborId) {
-		laborDAO.deleteLaborById(laborId);
-
-		return "deleted";
+		if(laborDAO.getOne(laborId)!=null)
+		{
+	        laborDAO.deleteLaborById(laborId);
+			return "Labor deleted";
+		}
+		else
+		{
+			return "Labor id Not found";
+		}
+		
 	}
 
 	

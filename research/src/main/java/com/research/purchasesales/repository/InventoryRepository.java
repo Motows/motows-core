@@ -67,7 +67,11 @@ public class InventoryRepository implements IInventoryRepository{
 		InventoryProjection inv =	InventoryDAO.getOne(inventoryId);
 		
 		InventoryDTO invdto = new InventoryDTO();
-		
+		if(inv==null)
+		{
+			invdto.setEntryno("Invalid ID:"+inventoryId);
+			return invdto;
+		}
 		invdto.setEntryDate(inv.getEntry_Date());
 		invdto.setItemCode(inv.getItem_Code());
 		invdto.setOrgId(inv.getOrg_Id());
@@ -83,9 +87,17 @@ public class InventoryRepository implements IInventoryRepository{
 
 	@Override
 	public String deleteRoleById(String inventoryId) {
-		InventoryDAO.deleteById(inventoryId);
-		
-		return "deleted";
+		if(InventoryDAO.getOne(inventoryId)!=null)
+		{
+			InventoryDAO.deleteById(inventoryId);
+			
+			return "Inventory deleted";
+		}
+		else
+		{
+			return "Inventory id Not found";
+		}
+
 	}
 
 	@Override

@@ -159,6 +159,11 @@ public class JobCodeRepository implements IJobCodeRepositry{
 		JobCardProjection Jobcard =	JobCodeDAO.getOne(jobcodeId);
 		
 		JobCodeDTO jobcodeto  = new JobCodeDTO();
+		if(Jobcard==null)
+		{
+			jobcodeto.setJobCardID("Invalid ID:"+jobcodeId);
+			return jobcodeto;
+		}
 		jobcodeto.setJobCardID(Jobcard.getJob_CardID());
 		jobcodeto.setOrganisationID(Jobcard.getOrganisationID());
 		jobcodeto.setJobCardType(Jobcard.getJob_Card_Type());
@@ -220,8 +225,16 @@ public class JobCodeRepository implements IJobCodeRepositry{
 	}
 @Override
 public String deletejobCodeById(String jobcodeId) {
-	JobCodeDAO.deleteById(jobcodeId);
-	return "deleted";
+	if(JobCodeDAO.getOne(jobcodeId)!=null)
+	{
+		JobCodeDAO.deleteById(jobcodeId);
+		return "JobCode deleted";
+	}
+	else
+	{
+		return "JobCode id Not found";
+	}
+	
 }
 
 

@@ -43,7 +43,11 @@ public class OrgPartMakeRepository implements IOrgPartMakeRepository {
 	public OrgPartMakeDTO getOrgPartMake(String orgPartMakeId) {
 		OrgPartMakeProjection orgPartMake = orgPartMakeDAO.getOne(orgPartMakeId);
 		OrgPartMakeDTO orgPartMakeDTO = new OrgPartMakeDTO();
-		
+		if(orgPartMake==null)
+		{
+			orgPartMakeDTO.setPartMakeId("Invalid ID:"+orgPartMakeId);
+			return orgPartMakeDTO;
+		}
 		orgPartMakeDTO.setPartMakeId(orgPartMake.getPart_Make_Id());
 		orgPartMakeDTO.setPartMakeName(orgPartMake.getPart_Make_Name());
 		orgPartMakeDTO.setPartsMakeCaption(orgPartMake.getParts_Make_Caption());
@@ -54,9 +58,17 @@ public class OrgPartMakeRepository implements IOrgPartMakeRepository {
 
 	@Override
 	public String deleteOrgPartMake(String orgPartMakeId) {
-		orgPartMakeDAO.deleteById(orgPartMakeId);
+		if(orgPartMakeDAO.getOne(orgPartMakeId)!=null)
+		{
+			orgPartMakeDAO.deleteById(orgPartMakeId);
 
-		return "Org Part Make Deleted";
+			return "Org Part Make Deleted";
+		}
+		else
+		{
+			return "Org Part id Not found";
+		}
+
 	}
 
 	@Override

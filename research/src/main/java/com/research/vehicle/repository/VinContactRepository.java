@@ -35,17 +35,30 @@ public class VinContactRepository implements IVinContactRepository {
 	public VinContactDTO getvinConByID(String vehicleId) {
 		VIN_ContactProjection vinconpro = VinContactDAO.getOne(vehicleId);
 		VinContactDTO vincondto = new VinContactDTO();
-	//	vincondto.setContactType(vinconpro.getContactType());
-	//	vincondto.setCustomerID(vinconpro.getCustomer().getCustomerId());
+		if(vinconpro==null)
+		{
+			vincondto.setVehicleID("Invalid ID:"+vehicleId);
+			return vincondto;
+		}
+		vincondto.setContactType(vinconpro.getContact_Type());
+		vincondto.setCustomerID(vinconpro.getCustomer_Id());
 		vincondto.setVehicleID(vinconpro.getVehicleID());
 		return vincondto;
 	}
 
 	@Override
 	public String deleteVinConByID(String vehicleId) {
-		VinContactDAO.deleteById(vehicleId);
+		if(VinContactDAO.getOne(vehicleId)!=null)
+		{
+			VinContactDAO.deleteById(vehicleId);
 
-		return "deleted";
+			return "Vehicle Contact deleted";
+		}
+		else
+		{
+			return "Vehicle Contact  id Not found";
+		}
+
 	}
 
 	@Override

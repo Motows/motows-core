@@ -36,7 +36,11 @@ public class BrandRepository implements IBrandRepository {
 		BrandProjection brand = brandDAO.getOne(brandId);
 
 		BrandDTO brandDTO = new BrandDTO();
-
+		if(brand==null)
+		{
+			brandDTO.setBrandId("Invalid ID:"+brandId);
+			return brandDTO;
+		}
 		brandDTO.setBrandCaption(brand.getBrand_Caption());
 		brandDTO.setBrandId(brand.getBrand_Id());
 		brandDTO.setBrandName(brand.getBrand_Name());
@@ -47,8 +51,16 @@ public class BrandRepository implements IBrandRepository {
 
 	@Override
 	public String deleteBrandById(String brandId) {
-		brandDAO.deleteById(brandId);
-		return "Brand Deleted";
+		if(brandDAO.getOne(brandId)!=null)
+		{
+			brandDAO.deleteById(brandId);
+			return "Brand Deleted";
+			}
+		else
+		{
+			return "Brand id Not found";
+		}
+
 	}
 
 	@Override

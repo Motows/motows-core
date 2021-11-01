@@ -26,6 +26,11 @@ public class HSNRepository implements IHSNRepository {
 	public HSNDTO gethsnbyCode(String hsncode) {
 		HSNProjection hsnpro = hsndao.getOne(hsncode);
 		HSNDTO hsndto = new HSNDTO();
+		if(hsnpro==null)
+		{
+			hsndto.setHSNCode("Invalid ID:"+hsncode);
+			return hsndto;
+		}
 		hsndto.setDescription(hsnpro.getDescription());
 		hsndto.setType(hsnpro.getType());
 		hsndto.setHSNCode(hsnpro.getHSNCode());
@@ -34,8 +39,16 @@ public class HSNRepository implements IHSNRepository {
 
 	@Override
 	public String deletehsnbyCode(String hsncode) {
-		hsndao.deleteById(hsncode);
-		return "Deleted";
+		if(hsndao.getOne(hsncode)!=null)
+		{
+			hsndao.deleteById(hsncode);
+			return "HSN Deleted";
+		}
+		else
+		{
+			return "HSN id Not found";
+		}
+
 	}
 
 	@Override

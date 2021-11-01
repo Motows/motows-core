@@ -27,7 +27,11 @@ public class ColorRepository implements IColorRepository {
 		ColorProjection color = colorDAO.getOne(colorId);
 		
 		ColorDTO colorDTO = new ColorDTO();
-		
+		if(color==null)
+		{
+			colorDTO.setColorId("Invalid ID:"+colorId);
+			return colorDTO;
+		}
 		colorDTO.setColorDescription(color.getColor_Description());
 		colorDTO.setColorId(color.getColor_Id());
 		return colorDTO;
@@ -35,8 +39,16 @@ public class ColorRepository implements IColorRepository {
 
 	@Override
 	public String deleteColorById(String colorId) {
-		colorDAO.deleteById(colorId);
-		return "color Deleted";
+		if(colorDAO.getOne(colorId)!=null)
+		{
+			colorDAO.deleteById(colorId);
+			return "Color Deleted";
+		}
+		else
+		{
+			return "Color id Not found";
+		}
+
 	}
 
 	@Override

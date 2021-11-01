@@ -81,7 +81,11 @@ public class VINRepository implements IVINRepository {
 		VINProjection vinpro = VINDAO.getOne(vinId);
 
 		VINDTO vindto = new VINDTO();
-
+		if(vinpro==null)
+		{
+			vindto.setVehicleID("Invalid ID:"+vinId);
+			return vindto;
+		}
 		vindto.setVINRegNo(vinpro.getVINReg_No());
 		vindto.setVINNo(vinpro.getVINNo());
 		vindto.setModelID(vinpro.getModel().getModel_Id());
@@ -96,10 +100,18 @@ public class VINRepository implements IVINRepository {
 
 	@Override
 	public String deleteVinByID(String vinId) {
+		if(VINDAO.getOne(vinId)!=null)
+		{
+			VINDAO.deleteById(vinId);
 
-		VINDAO.deleteById(vinId);
+			return "Vehicle deleted";
+		}
+		else
+		{
+			return "Vehicle id Not found";
+		}
 
-		return "deleted";
+	
 	}
 
 	@Override

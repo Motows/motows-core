@@ -46,7 +46,11 @@ public class JobItemsRepository implements IJobItemsRepository {
 		JobItemsProjection jobItem = jobItemsDAO.getOne(jobItemsId);
 
 		JobItemsDTO jobItemsDTO = new JobItemsDTO();
-
+		if(jobItem==null)
+		{
+			jobItemsDTO.setJobItemId("Invalid ID:"+jobItemsId);
+			return jobItemsDTO;
+		}
 		jobItemsDTO.setJobItemId(jobItem.getJob_Item_Id());
 		jobItemsDTO.setJobItemType(jobItem.getJob_Item_Type());
 		jobItemsDTO.setJobNo(jobItem.getJob_No());
@@ -64,8 +68,16 @@ public class JobItemsRepository implements IJobItemsRepository {
 
 	@Override
 	public String deleteJobItemsById(String jobItemsId) {
-		jobItemsDAO.deleteById(jobItemsId);
-		return "Job Items Deleted";
+		if(jobItemsDAO.getOne(jobItemsId)!=null)
+		{
+
+			jobItemsDAO.deleteById(jobItemsId);
+			return "Job Items Deleted";
+		}
+		else
+		{
+			return "Job Items id Not found";
+		}
 	}
 
 	@Override

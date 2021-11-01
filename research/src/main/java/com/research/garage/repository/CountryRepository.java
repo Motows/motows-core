@@ -48,7 +48,7 @@ public class CountryRepository implements ICountryRepository {
 	@Override
 	public CountryDTO getCountryById(String countryionId) {
 		CountryProjection country = countryDAO.getOne(countryionId);
-
+       
 		CountryDTO countryDTO = new CountryDTO();
 		countryDTO.setCountryID(country.getCountryID());
 		countryDTO.setCountryLongName(country.getCountry_Long_Name());
@@ -63,10 +63,17 @@ public class CountryRepository implements ICountryRepository {
 
 	@Override
 	public String deleteCountryById(String countryionId) {
+		if(countryDAO.getOne(countryionId)!=null)
+		{
+			countryDAO.deleteById(countryionId);
+			return "Country Deleted";
+		}
+		else
+		{
+			return "Country id Not found";
+		}
 
-		countryDAO.deleteById(countryionId);
-
-		return "Country Deleted";
+		
 	}
 
 	@Override

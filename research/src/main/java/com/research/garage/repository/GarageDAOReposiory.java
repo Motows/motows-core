@@ -87,12 +87,16 @@ public class GarageDAOReposiory implements IGarageRepository {
 
 	@Override
 	public String deleteGarageById(String garageId) {	
-		
-		garageDAO.deleteGarageById(garageId);
-		
-		
-		
-		return "deleted";
+		if(garageDAO.getOne(garageId)!=null)
+		{
+			garageDAO.deleteGarageById(garageId);
+			return "Garage deleted";
+		}
+		else
+		{
+			return "Garage id Not found";
+		}
+	
 	}
 	
 	@Override
@@ -121,6 +125,7 @@ public class GarageDAOReposiory implements IGarageRepository {
 		grg.setGarage_Name(garage.getGarageName());
 		grg.setOrg_Id(garage.getOrgId());
 		grg.setCountryID(garage.getCountryID());
+		grg.setGarage_Id(garage.getGarageId());
 
 		garageDAO.save(grg);
 

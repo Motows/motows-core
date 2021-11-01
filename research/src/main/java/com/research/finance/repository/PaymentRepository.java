@@ -66,6 +66,12 @@ public class PaymentRepository implements IPaymentRepository {
 	public PaymentDTO getAddPaymenteRequest(String paymentid) {
 		PaymentProjection paypro = PaymentDAO.getOne(paymentid);
 		PaymentDTO paydto = new PaymentDTO();
+		if(paypro==null)
+		{
+			paydto.setPaymentID("Invalid ID:"+paymentid);
+			return paydto;
+		}
+		
 		paydto.setPaymentID(paypro.getPaymentID());
 		paydto.setEntrytype(paypro.getEntrytype());
 		paydto.setDate(paypro.getDate());
@@ -110,9 +116,18 @@ public class PaymentRepository implements IPaymentRepository {
 	
 	@Override
 	public String deletePaymenteRequest(String paymentid) {
-		PaymentDAO.deleteById(paymentid);
 		
-		return "deleted";
+		if(PaymentDAO.getOne(paymentid)!=null)
+		{
+			PaymentDAO.deleteById(paymentid);
+			
+			return "Payment deleted";
+		}
+		else
+		{
+			return "Payment id Not found";
+		}
+		
 	}
 
 	

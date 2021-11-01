@@ -37,6 +37,11 @@ public class OrgHSNRepository implements IOrgHSNRepository {
 	public OrgHSNDTO gethsnbycode(String hsncode) {
 		OrgHSNProjection orghsn = OrgHSNDAO.getOne(hsncode);
 		OrgHSNDTO hsndto = new OrgHSNDTO();
+		if(orghsn==null)
+		{
+			hsndto.setHSNCode("Invalid ID:"+hsncode);
+			return hsndto;
+		}
 		hsndto.setDescription(orghsn.getDescription());
 		hsndto.setOrganisationID(orghsn.getOrganisationID());
 		hsndto.setType(orghsn.getType());
@@ -46,9 +51,17 @@ public class OrgHSNRepository implements IOrgHSNRepository {
 
 	@Override
 	public String deleteorghsn(String hsncode) {
-		OrgHSNDAO.deleteById(hsncode);
-		return "deleted";
-	}
+		if(OrgHSNDAO.getOne(hsncode)!=null)
+		{
+			OrgHSNDAO.deleteById(hsncode);
+			return "OrgHSN deleted";
+		
+		}
+		else
+		{
+			return "OrgHSN id Not found";
+		}
+}
 
 	@Override
 	public String updatehsn(OrgHSNDTO orghsndto) {

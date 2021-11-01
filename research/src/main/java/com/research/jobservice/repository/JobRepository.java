@@ -79,6 +79,11 @@ public class JobRepository implements IJobRepository {
 		response.setPrice(job.getPrice());
 		response.setJobtype(job.getJob_type());
        }
+       else
+       {
+    	   response.setJobID("Invalid ID:"+jobId);
+   			
+       }
 
 		return response;
 	}
@@ -112,10 +117,17 @@ public class JobRepository implements IJobRepository {
 
 	@Override
 	public String deletejobById(String jobId) {
+		if(jobDAO.getOne(jobId)!=null)
+		{
+			jobDAO.deletejobById(jobId);
 
-		jobDAO.deletejobById(jobId);
-
-		return "deleted";
+			return "Job deleted";
+		}
+		else
+		{
+			return "Job id Not found";
+		}
+		
 	}
 
 

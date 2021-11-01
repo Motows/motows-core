@@ -32,7 +32,11 @@ public class MaterialRepository  implements IMaterialRepository {
 		MaterialProjection matrelpro = materialDAO.getOne(partId);
 
 		MaterialDTO materialDTO = new MaterialDTO();
-		
+		if(matrelpro==null)
+		{
+			materialDTO.setPartID("Invalid ID:"+partId);
+			return materialDTO;
+		}
 		materialDTO.setCategory(matrelpro.getCategory());
 		materialDTO.setHSN(matrelpro.getHSN());
 		materialDTO.setPartDescription(matrelpro.getPart_Description());
@@ -99,8 +103,16 @@ public class MaterialRepository  implements IMaterialRepository {
 
 	@Override
 	public String deleteMaterialById(String partId) {
-		materialDAO.deleteById(partId);
-		return "Deleted";
+		if(materialDAO.getOne(partId)!=null)
+		{
+			materialDAO.deleteById(partId);
+			return "Material Deleted";
+		}
+		else
+		{
+			return "Material id Not found";
+		}
+
 	}
 	
 	@Override

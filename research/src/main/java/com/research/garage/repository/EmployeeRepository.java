@@ -84,8 +84,17 @@ public class EmployeeRepository implements IEmployeeRepository {
 
 	@Override
 	public String deleteEmployeeById(String employeeId) {
-		employeeDAO.deleteById(employeeId);
-		return "Employee Deleted";
+		if(employeeDAO.getOne(employeeId)!=null)
+		{
+			
+			employeeDAO.deleteById(employeeId);
+			return "Employee Deleted";
+		}
+		else
+		{
+			return "Employee id Not found";
+		}
+		
 	}
 
 	@Override
@@ -113,7 +122,9 @@ public class EmployeeRepository implements IEmployeeRepository {
 		employee.setEmail_Id(employeeDTO.getEmailId());
 		employee.setRole(employeeDTO.getRole());
 		employee.setStatus(employeeDTO.getStatus());
-		
+		employeeDTO.setOrganisationId(employee.getOrganisation_Id());
+		employeeDTO.setEmployeeId(employee.getEmployee_Id());
+		employeeDAO.save(employee);
 		return "Employee Updated";
 	}
 

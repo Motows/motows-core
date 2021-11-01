@@ -38,6 +38,11 @@ public class OrgModelRepository implements IOrgModelRepository {
 	public OrgModelDTO getorgmodelById(String modelId) {
 		OrgModelPojection orgmod = OrgModelDAO.getOne(modelId);
 		OrgModelDTO orgmodeldto = new OrgModelDTO();
+		if(orgmod==null)
+		{
+			orgmodeldto.setModelID("Invalid ID:"+modelId);
+			return orgmodeldto;
+		}
 		orgmodeldto.setModelCaption(orgmod.getModel_Caption());
 		orgmodeldto.setModelDescription(orgmod.getModel_Description());
 		orgmodeldto.setModelUI(orgmod.getModelUI());
@@ -49,8 +54,16 @@ public class OrgModelRepository implements IOrgModelRepository {
 
 	@Override
 	public String deleteorgmodelById(String modelId) {
-		OrgModelDAO.deleteById(modelId);
-		return "Deleted";
+		if(OrgModelDAO.getOne(modelId)!=null)
+		{
+			OrgModelDAO.deleteById(modelId);
+			return "Org Model Deleted";
+		}
+		else
+		{
+			return "Org Model  id Not found";
+		}
+
 	}
 
 	@Override

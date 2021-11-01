@@ -54,8 +54,16 @@ public class OrgMaterialRepository implements IOrgMaterialRepository {
 
 	@Override
 	public String deleteorgmatialById(String orgmatId) {
-		orgmaterialDAO.deleteById(orgmatId);
-		return "Deleted";
+		if(orgmaterialDAO.getOne(orgmatId)!=null)
+		{
+			orgmaterialDAO.deleteById(orgmatId);
+			return "Org Material Deleted";
+
+		}
+		else
+		{
+			return "Org Material id Not found";
+		}
 	}
 
 	@Override
@@ -78,6 +86,11 @@ public class OrgMaterialRepository implements IOrgMaterialRepository {
 	public OrgMaterialDTO getorgmaterialById(String orgmatId) {
 		OrgMaterialProjection ormatpro = orgmaterialDAO.getOne(orgmatId);
 		OrgMaterialDTO orgMaterialDTO = new OrgMaterialDTO();
+		if(ormatpro==null)
+		{
+			orgMaterialDTO.setPartID("Invalid ID:"+orgmatId);
+			return orgMaterialDTO;
+		}
 		orgMaterialDTO.setCategory(ormatpro.getCategory());
 		orgMaterialDTO.setHSN(ormatpro.getHSN());
 		orgMaterialDTO.setOrganisationID(ormatpro.getOrganisationID());

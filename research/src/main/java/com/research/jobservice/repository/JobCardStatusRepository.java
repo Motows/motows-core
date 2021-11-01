@@ -28,7 +28,11 @@ public class JobCardStatusRepository implements IJobCardStatusRepository {
 		JobCardStatusProjection jobCardStatus = jobCardStatusDAO.getOne(jobCardStatusId);
 
 		JobCardStatusDTO jobCardStatusDTO = new JobCardStatusDTO();
-
+		if(jobCardStatusId==null)
+		{
+			jobCardStatusDTO.setJobCardStatusId("Invalid ID:"+jobCardStatusId);
+			return jobCardStatusDTO;
+		}
 		jobCardStatusDTO.setJobCardStatusId(jobCardStatus.getJob_Card_Status_Id());
 		jobCardStatusDTO.setJobStatus(jobCardStatus.getJob_Status());
 
@@ -37,8 +41,16 @@ public class JobCardStatusRepository implements IJobCardStatusRepository {
 
 	@Override
 	public String deleteJobCardStatusById(String jobCardStatusId) {
-		jobCardStatusDAO.deleteById(jobCardStatusId);
-		return "Job Card Status Deleted";
+		if(jobCardStatusDAO.getOne(jobCardStatusId)!=null)
+		{
+
+			jobCardStatusDAO.deleteById(jobCardStatusId);
+			return "Job Card Status Deleted";
+		}
+		else
+		{
+			return "Job Card Status id Not found";
+		}
 	}
 
 	@Override

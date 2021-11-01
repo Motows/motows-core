@@ -136,8 +136,17 @@ public class CustomerRepository implements ICustomerRepository {
 
 	@Override
 	public String deleteCustomerById(String customerId) {
-		customerDAO.deleteById(customerId);
-		return "Customer Deleted";
+		if(customerDAO.getOne(customerId)!=null)
+		{
+			
+			customerDAO.deleteById(customerId);
+			return "Customer Deleted";
+		}
+		else
+		{
+			return "Customer id Not found";
+		}
+		
 	}
 
 	@Override

@@ -38,7 +38,11 @@ public class ModelRepository implements IModelRepository {
 		ModelProjection model = modelDAO.getOne(modelId);
 
 		ModelDTO modelDTO = new ModelDTO();
-
+		if(model==null)
+		{
+			modelDTO.setModelId("Invalid ID:"+modelId);
+			return modelDTO;
+		}
 		modelDTO.setBodyType(model.getBody_Type());
 		modelDTO.setModelCaption(model.getModel_Caption());
 		modelDTO.setModelDescription(model.getModel_Description());
@@ -51,8 +55,16 @@ public class ModelRepository implements IModelRepository {
 
 	@Override
 	public String deleteModelById(String modelId) {
-	modelDAO.deleteById(modelId);;
-		return "Model Deleted";
+		if(modelDAO.getOne(modelId)!=null)
+		{
+			modelDAO.deleteById(modelId);;
+			return "Model Deleted";
+		}
+		else
+		{
+			return "Model id Not found";
+		}
+
 	}
 
 	@Override

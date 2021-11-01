@@ -54,7 +54,11 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 		PurchaseLineProjection purchaseLine = purchaseLineDAO.getOne(purchaseLineId);
 		
 		PurchaseLineDTO purchaseLineDTO = new PurchaseLineDTO();
-		
+		if(purchaseLine==null)
+		{
+			purchaseLineDTO.setPurcahseLineId("Invalid ID:"+purchaseLineId);
+			return purchaseLineDTO;
+		}
 		purchaseLineDTO.setPurcahseLineId(purchaseLine.getPurcahse_Line_Id());
 		purchaseLineDTO.setPurchaselineno(purchaseLine.getPurchaselineno());
 		purchaseLineDTO.setQty(purchaseLine.getQty());
@@ -72,8 +76,16 @@ public class PurchaseLineRepository implements IPurchaseLineRepository {
 
 	@Override
 	public String deletePurchaseLineById(String purchaseLineId) {
-		purchaseLineDAO.deleteById(purchaseLineId);
-		return "Purchase Line Deleted";
+		if(purchaseLineDAO.getOne(purchaseLineId)!=null)
+		{
+			purchaseLineDAO.deleteById(purchaseLineId);
+			return "Purchase Line Deleted";
+		}
+		else
+		{
+			return "Purchase Line id Not found";
+		}
+
 	}
 
 	@Override

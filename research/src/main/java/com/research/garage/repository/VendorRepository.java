@@ -58,16 +58,6 @@ public class VendorRepository implements IVendorRepository {
 			vendorDTO.setStateId(zipCode.getState_Id());
 		}
 		
-//		if(country==null)
-//		{
-//			return "Country ID "+ vendorDTO.getCountryId() +" not in the Master";
-//		}
-//		if(state==null)
-//		{
-//			return "State ID "+ vendorDTO.getStateId() +" not in the Master";
-//		}
-		
-		
 		VendorProjection vendor = new VendorProjection();
 		vendor.setVendorID(vendorDTO.getVendorID());
 		vendor.setVendor_Name(vendorDTO.getVendorName());
@@ -83,6 +73,7 @@ public class VendorRepository implements IVendorRepository {
 		vendor.setState_Id(vendorDTO.getStateId());
 		vendor.setOrg_Id(vendorDTO.getOrgId());
 		vendor.setZip_Code_Id(vendorDTO.getZipCodeId());
+		vendor.setMobile_No(vendorDTO.getMobileNo());
 		VendorDAO.save(vendor);
 		return "Details Saved";
 	}
@@ -104,6 +95,11 @@ public class VendorRepository implements IVendorRepository {
 		response.setEmailIDVerified(ven.getEmailIDVerified());
 		response.setMobileNoVerified(ven.getMobile_No_Verified());
 		response.setGSTIN(ven.getGSTIN());
+		response.setCountryId(ven.getCountry_Id());
+		response.setStateId(ven.getState_Id());
+		response.setZipCodeId(ven.getZip_Code_Id());
+		response.setOrgId(ven.getOrg_Id());
+		response.setMobileNo(ven.getMobile_No());
 		
 		return response;
 	}
@@ -129,6 +125,8 @@ public class VendorRepository implements IVendorRepository {
 		response.setCountryId(ven.getCountry_Id());
 		response.setStateId(ven.getState_Id());
 		response.setZipCodeId(ven.getZip_Code_Id());
+		response.setOrgId(ven.getOrg_Id());
+		response.setMobileNo(ven.getMobile_No());
 		
 		venDtoList.add(response);
 		}
@@ -137,26 +135,58 @@ public class VendorRepository implements IVendorRepository {
 
 	@Override
 	public String deleteVendorByID(String vendorId) {
-		VendorDAO.deleteById(vendorId);
+		if(VendorDAO.getOne(vendorId)!=null)
+		{
+			VendorDAO.deleteById(vendorId);
+			return "Vendor deleted";
+		}
+		else
+		{
+			return "Vendor id Not found";
+		}
 		
-		return "deleted";
 	}
 
 	@Override
 	public String updateVenorDetails(VendorDTO vendorDTO) {
-		VendorProjection ven =	VendorDAO.getOne(vendorDTO.getVendorID());
+		CountryProjection country = countryDAO.getOne(vendorDTO.getCountryId());
+		StateProjection state =  stateDAO.getOne(vendorDTO.getStateId());
+		OrganisationProjection org = OrganisationDAO.getOne(vendorDTO.getOrgId());
+		ZipCodeProjection zipCode = ZipCodeDAO.getOne(vendorDTO.getZipCodeId());
+		
+		if(org==null)
+		{
+			return "Org ID "+ vendorDTO.getOrgId() +" not in the Master";
+		}
+		
+		if(zipCode==null)
+		{
+			return "ZipCode ID "+ vendorDTO.getZipCodeId() +" not in the Master";
+		}
+		else
+		{
+			vendorDTO.setCountryId(zipCode.getCountry_Id());
+			vendorDTO.setStateId(zipCode.getState_Id());
+		}
+		VendorProjection vendor =	VendorDAO.getOne(vendorDTO.getVendorID());
 
-		ven.setVendorID(vendorDTO.getVendorID());
-		ven.setVendor_Name(vendorDTO.getVendorName());
-		ven.setVendor_Name_Caption(vendorDTO.getVendorNameCaption());
-		ven.setVendor_NameUI(vendorDTO.getVendorNameUI());
-		ven.setType(vendorDTO.getType());
-		ven.setEmailID(vendorDTO.getEmailID());
-		ven.setAddress(vendorDTO.getAddress());
-		ven.setEmailIDVerified(vendorDTO.getEmailIDVerified());
-		ven.setMobile_No_Verified(vendorDTO.getMobileNoVerified());
-		ven.setGSTIN(vendorDTO.getGSTIN());
-		VendorDAO.save(ven);
+		vendor.setVendorID(vendorDTO.getVendorID());
+		vendor.setVendor_Name(vendorDTO.getVendorName());
+		vendor.setVendor_Name_Caption(vendorDTO.getVendorNameCaption());
+		vendor.setVendor_NameUI(vendorDTO.getVendorNameUI());
+		vendor.setType(vendorDTO.getType());
+		vendor.setEmailID(vendorDTO.getEmailID());
+		vendor.setAddress(vendorDTO.getAddress());
+		vendor.setEmailIDVerified(vendorDTO.getEmailIDVerified());
+		vendor.setMobile_No_Verified(vendorDTO.getMobileNoVerified());
+		vendor.setGSTIN(vendorDTO.getGSTIN());
+		vendor.setCountry_Id(vendorDTO.getCountryId());
+		vendor.setState_Id(vendorDTO.getStateId());
+		vendor.setOrg_Id(vendorDTO.getOrgId());
+		vendor.setZip_Code_Id(vendorDTO.getZipCodeId());
+		vendor.setVendorID(vendorDTO.getVendorID());
+		vendor.setMobile_No(vendorDTO.getMobileNo());
+		VendorDAO.save(vendor);
 		return "updated";
 	}
 

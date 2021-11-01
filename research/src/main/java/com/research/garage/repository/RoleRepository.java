@@ -45,10 +45,16 @@ public class RoleRepository implements IRoleRepository {
 
 	@Override
 	public String deleteRoleById(String roleId) {
-			
-		RoleDAO.deleteRoleById(roleId);
-			
+		if(RoleDAO.getOne(roleId)!=null)
+		{
+			RoleDAO.deleteRoleById(roleId);
 			return "deleted";
+		}
+		else
+		{
+			return "Role id Not found";
+		}
+			
 	}
 
 	@Override

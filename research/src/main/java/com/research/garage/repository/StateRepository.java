@@ -63,24 +63,52 @@ public class StateRepository implements IStateRepository {
 		stateDTO.setStateShortNameCaption(state.getState_Short_Name_Caption());
 		stateDTO.setStateShortNameUi(state.getState_Short_Name_Ui());
 		stateDTO.setStateId(state.getState_Id());
+		stateDTO.setCountryId(state.getCountry_Id());
 
 		return stateDTO;
 	}
 
 	@Override
 	public String deleteStateById(String stateId) {
-		stateDAO.deleteById(stateId);
-		return "State Deleted";
+		
+		if(stateDAO.getOne(stateId)!=null)
+		{
+			
+			stateDAO.deleteById(stateId);
+			return "State Deleted";
+		}
+		else
+		{
+			return "State id Not found";
+		}
+		
 	}
 
 	@Override
 	public String UpdateState(StateDTO stateDTO) {
+CountryProjection country = countryDAO.getOne(stateDTO.getCountryId());
+		
+		if(country==null)
+		{
+			return "Country ID "+ stateDTO.getCountryId() +" not in the Master";
+		}
+		String stateID=stateDTO.getStateId();
+		if(stateID==null || stateID.isBlank())
+		{
+			return "State ID Required";
+		}
+		if(stateDAO.getOne(stateID)!=null)
+		{
+			return "State ID Already Available";
+		}
 		StateProjection state = stateDAO.getOne(stateDTO.getStateId());
 
+		state.setState_Id(stateDTO.getStateId());
 		state.setState_Short_Name(stateDTO.getStateShortName());
 		state.setState_Short_Name_Caption(stateDTO.getStateShortNameCaption());
 		state.setState_Short_Name_Ui(stateDTO.getStateShortNameUi());
-
+		state.setCountry_Id(stateDTO.getCountryId());
+		stateDAO.save(state);
 		return "State Updated";
 	}
 
@@ -97,6 +125,7 @@ public class StateRepository implements IStateRepository {
 			stateDTO.setStateShortNameCaption(state.getState_Short_Name_Caption());
 			stateDTO.setStateShortNameUi(state.getState_Short_Name_Ui());
 			stateDTO.setStateId(state.getState_Id());
+			stateDTO.setCountryId(state.getCountry_Id());
 			allStateDTO.add(stateDTO);
 
 		}

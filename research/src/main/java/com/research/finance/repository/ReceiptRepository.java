@@ -89,7 +89,11 @@ public class ReceiptRepository implements IReceiptRepository {
 		ReceiptProjection receipt = receiptDAO.getOne(receiptId);
 
 		ReceiptDTO receiptDTO = new ReceiptDTO();
-
+		if(receipt==null)
+		{
+			 receiptDTO.setReceiptId("Invalid ID:"+receiptId);
+			 return receiptDTO;
+		}
 		receiptDTO.setDate(receipt.getDate());
 		receiptDTO.setEntryType(receipt.getEntry_Type());
 		receiptDTO.setGarageId(receipt.getGarage_Id());
@@ -137,8 +141,17 @@ public class ReceiptRepository implements IReceiptRepository {
 
 	@Override
 	public String deleteReceiptById(String receiptId) {
-		receiptDAO.deleteById(receiptId);
-		return "Receipt whth Id " + receiptId + " Deleted";
+		
+		if(receiptDAO.getOne(receiptId)!=null)
+		{
+			receiptDAO.deleteById(receiptId);
+			return "Receipt whth Id " + receiptId + " Deleted";
+		}
+		else
+		{
+			return "Receipt id Not found";
+		}
+		
 	}
 
 	@Override
